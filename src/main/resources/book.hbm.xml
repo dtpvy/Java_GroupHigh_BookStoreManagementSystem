@@ -3,7 +3,7 @@
         "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="Category.Item" table="category" schema="public">
+    <class name="DTO.CategoryDTO" table="CATEGORIES" schema="public">
         <id name="id" type="java.lang.String" length="40">
             <column name="id"/>
         </id>
@@ -12,80 +12,80 @@
             <column name="name"/>
         </property>
 
-        <property name="createAt" type="java.sql.Timestamp">
-            <column name="create_at"/>
+        <property name="createdAt" type="java.sql.Timestamp">
+            <column name="created_at"/>
         </property>
 
-        <property name="updateAt" type="java.sql.Timestamp">
-            <column name="update_at"/>
-        </property>
-    </class>
-
-    <class name="Owner.Item" table="owner" schema="public">
-        <id name="id" type="java.lang.String" length="40">
-            <column name="id"/>
-        </id>
-
-        <property name="name" type="java.lang.String" length="255">
-            <column name="name"/>
-        </property>
-
-        <property name="description" type="java.langString">
-            <column name="description"/>
-        </property>
-
-        <property name="dob" type="java.sql.Timestamp">
-            <column name="date_of_birth"/>
-        </property>
-
-        <property name="createAt" type="java.sql.Timestamp">
-            <column name="create_at"/>
-        </property>
-
-        <property name="updateAt" type="java.sql.Timestamp">
-            <column name="update_at"/>
+        <property name="updatedAt" type="java.sql.Timestamp">
+            <column name="updated_at"/>
         </property>
     </class>
 
-    <class name="Book.Item" table="book" schema="public">
-        <id name="id" type="java.lang.String" length="40">
-            <column name="id"/>
-        </id>
+<!--    <class name="DTO.OwnerDTO" table="owner" schema="public">-->
+<!--        <id name="id" type="java.lang.String" length="40">-->
+<!--            <column name="id"/>-->
+<!--        </id>-->
 
-        <property name="categoryId" type="java.lang.String" length="40">
-            <column name="category_id"/>
-        </property>
+<!--        <property name="name" type="java.lang.String" length="255">-->
+<!--            <column name="name"/>-->
+<!--        </property>-->
 
-        <property name="publisherId" type="java.lang.String" length="40">
-            <column name="publisher_id"/>
-        </property>
+<!--        <property name="description" type="java.langString">-->
+<!--            <column name="description"/>-->
+<!--        </property>-->
 
-        <property name="authorId" type="java.lang.String" length="40">
-            <column name="author_id"/>
-        </property>
+<!--        <property name="dob" type="java.sql.Timestamp">-->
+<!--            <column name="date_of_birth"/>-->
+<!--        </property>-->
 
-        <property name="name" type="java.lang.String" length="255">
-            <column name="name"/>
-        </property>
+<!--        <property name="createAt" type="java.sql.Timestamp">-->
+<!--            <column name="create_at"/>-->
+<!--        </property>-->
 
-        <property name="description" type="java.langString">
-            <column name="description"/>
-        </property>
+<!--        <property name="updateAt" type="java.sql.Timestamp">-->
+<!--            <column name="update_at"/>-->
+<!--        </property>-->
+<!--    </class>-->
 
-        <property name="price" type="java.lang.Integer">
-            <column name="price"/>
-        </property>
+<!--    <class name="DTO.BookDTO" table="book" schema="public">-->
+<!--        <id name="id" type="java.lang.String" length="40">-->
+<!--            <column name="id"/>-->
+<!--        </id>-->
 
-        <property name="quantity" type="java.lang.Integer">
-            <column name="quantity"/>
-        </property>
+<!--        <property name="categoryId" type="java.lang.String" length="40">-->
+<!--            <column name="category_id"/>-->
+<!--        </property>-->
 
-        <property name="createAt" type="java.sql.Timestamp">
-            <column name="create_at"/>
-        </property>
+<!--        <property name="publisherId" type="java.lang.String" length="40">-->
+<!--            <column name="publisher_id"/>-->
+<!--        </property>-->
 
-        <property name="updateAt" type="java.sql.Timestamp">
-            <column name="update_at"/>
-        </property>
-    </class>
+<!--        <property name="authorId" type="java.lang.String" length="40">-->
+<!--            <column name="author_id"/>-->
+<!--        </property>-->
+
+<!--        <property name="name" type="java.lang.String" length="255">-->
+<!--            <column name="name"/>-->
+<!--        </property>-->
+
+<!--        <property name="description" type="java.langString">-->
+<!--            <column name="description"/>-->
+<!--        </property>-->
+
+<!--        <property name="price" type="java.lang.Integer">-->
+<!--            <column name="price"/>-->
+<!--        </property>-->
+
+<!--        <property name="quantity" type="java.lang.Integer">-->
+<!--            <column name="quantity"/>-->
+<!--        </property>-->
+
+<!--        <property name="createAt" type="java.sql.Timestamp">-->
+<!--            <column name="create_at"/>-->
+<!--        </property>-->
+
+<!--        <property name="updateAt" type="java.sql.Timestamp">-->
+<!--            <column name="update_at"/>-->
+<!--        </property>-->
+<!--    </class>-->
 </hibernate-mapping>
