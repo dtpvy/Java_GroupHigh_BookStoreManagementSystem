@@ -28,6 +28,10 @@
         <!-- Update database on startup -->
         <property name="hibernate.hbm2ddl.auto">update</property>
         <!-- Annotated entity classes -->
-        <mapping resource="book.hbm.xml"/>
+<!--        <mapping resource="book.hbm.xml"/>-->
+        <mapping class="DTO.CategoryDTO"/>
+        <mapping class="DTO.AuthorDTO"/>
+        <mapping class="DTO.PublisherDTO"/>
+        <mapping class="DTO.BookDTO"/>
     </session-factory>
 </hibernate-configuration>

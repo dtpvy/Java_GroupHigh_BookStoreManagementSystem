@@ -4,14 +4,14 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "CATEGORY")
+@Table(name = "CATEGORIES")
 public class CategoryDTO {
     public CategoryDTO(){
 
     }
 
     @Id
-    @Column
+    @Column (name = "id")
     private String id;
 
     public String getId() {
@@ -22,18 +22,18 @@ public class CategoryDTO {
         this.id = id;
     }
 
-    @Column
+    @Column (name = "name")
     private String name;
 
     public String getName() {
-        return name;
+        return  name;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    @Column
+    @Column (name = "created_at")
     private Timestamp createdAt;
 
     public Timestamp getCreatedAt() {
@@ -44,7 +44,7 @@ public class CategoryDTO {
         this.createdAt = createAt;
     }
 
-    @Column
+    @Column (name = "updated_at")
     private Timestamp updatedAt;
 
     public Timestamp getUpdatedAt() {
@@ -62,6 +62,6 @@ public class CategoryDTO {
         this.updatedAt = updatedAt;
     }
     public String toString(){
-        return new String(id + ", " + name + ", " + ", " + createdAt + ", " + updatedAt);
+        return new String("Category:{" + id + ", " + name + ", " + ", " + createdAt + ", " + updatedAt + "}");
     }
 }
