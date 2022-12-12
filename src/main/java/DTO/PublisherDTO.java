@@ -73,6 +73,7 @@ public class PublisherDTO {
     }
 
     public String toString(){
-        return new String("Publisher:{" + id + ", " + name + ", " + description + ", " + createdAt + ", " + updatedAt + "}");
+        return new String("Publisher:{id: " + id + ", name:" + name + ", description:" + description
+                + ", createdAt: " + createdAt + ", updatedAt: " + updatedAt + "}");
     }
 }

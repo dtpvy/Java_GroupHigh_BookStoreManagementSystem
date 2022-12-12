@@ -55,6 +55,7 @@ public class CategoryDTO {
         this.updatedAt = updateAt;
     }
 
+
     public CategoryDTO(String id, String name, Timestamp createdAt, Timestamp updatedAt){
         this.id = id;
         this.name = name;
@@ -62,6 +63,6 @@ public class CategoryDTO {
         this.updatedAt = updatedAt;
     }
     public String toString(){
-        return new String("Category:{" + id + ", " + name + ", " + ", " + createdAt + ", " + updatedAt + "}");
+        return new String("Category:{id: " + id + ", name: " + name + ", " + ", createdAt: " + createdAt + ", updatedAt:" + updatedAt + "}");
     }
 }

@@ -22,7 +22,7 @@ public class BookDTO {
         this.id = id;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "category_id")
     private CategoryDTO category;
     public CategoryDTO getCategory() {
@@ -33,7 +33,7 @@ public class BookDTO {
         this.category = category;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "publisher_id")
     private PublisherDTO publisher;
     public PublisherDTO getPublisher() {
@@ -44,7 +44,7 @@ public class BookDTO {
         this.publisher = publisher;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "author_id")
     private AuthorDTO author;
     public AuthorDTO getAuthor() {
@@ -77,12 +77,12 @@ public class BookDTO {
     }
 
     @Column (name = "price")
-    private float price;
-    public float getPrice() {
+    private double price;
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -118,12 +118,27 @@ public class BookDTO {
         this.updatedAt = updatedAt;
     }
 
+    public BookDTO(String id, CategoryDTO category, PublisherDTO publisher, AuthorDTO author, String name, String description, double price, int quantity, Timestamp createdAt, Timestamp updatedAt) {
+        this.id = id;
+        this.category = category;
+        this.publisher = publisher;
+        this.author = author;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
     public String toString(){
         return new String(
-                "Book:{\n" +id + ", " + name + ", " + description + ", " + price + ", " + quantity + ", " + createdAt + ", " + updatedAt + ",\n"
-                + category.toString() + ",\n"
-                + publisher.toString() + ",\n"
-                + author.toString() +"\n}"
-        );
+                "Book:{id: " +id + ", name: " + name + ", description: " + description + ", price: " + price + ", quantity: " + quantity
+                        + ", createdAt: " + createdAt + ", updatedAt: " + updatedAt + ",\n\t"
+                        + category.toString() + ",\n\t"
+                        + publisher.toString() + ",\n\t"
+                        + author.toString() +"}");
     }
+
+
 }

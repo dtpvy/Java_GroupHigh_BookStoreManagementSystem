@@ -85,6 +85,7 @@ public class AuthorDTO {
     }
 
     public String toString(){
-        return new String("Author:{" + id + ", " + name + ", " + description + ", " + dob + ", " + createdAt + ", " + updatedAt + "}");
+        return new String("Author:{id: " + id + ", name: " + name + ", description: " + description + ", dob: " + dob
+                + ", createdAt: " + createdAt + ", updatedAt:" + updatedAt + "}");
     }
 }
