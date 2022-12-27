@@ -9,6 +9,8 @@ import java.awt.*;
 import java.util.List;
 
 public class Author extends JPanel {
+    List<AuthorDTO> authorList;
+    AuthorDTO authorActive;
     public Author() {
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.X_AXIS));
@@ -92,6 +94,19 @@ public class Author extends JPanel {
         menuPanel.add(cb2);
         menuPanel.setBorder(BorderFactory.createTitledBorder("Tìm kiếm và sắp xếp"));
         tablePanel.add(menuPanel);
+
+        String[][] data = {
+                { "Kundan Kumar Jha", "4031", "CSE" },
+                { "Anand Jha", "6014", "IT" }
+        };
+        String[] columnNames = { "Name", "Roll Number", "Department" };
+        JTable jTable = new JTable(data, columnNames);
+        jTable.setBounds(30, 40, 800, 300);
+        JScrollPane sp = new JScrollPane(jTable);
+        tablePanel.add(sp);
+        tablePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        tablePanel.setPreferredSize(new Dimension(700, 300));
+        tablePanel.setMaximumSize(new Dimension(700, 300));
         add(tablePanel);
     }
 }
