@@ -42,7 +42,7 @@ public class BookDAO {
         }
     }
 
-    public static BookDTO getBookById(String id){
+    public static BookDTO getBookById(int id){
         BookDTO result = null;
         Session session = SessionGet.getSessionFactory().openSession();
         try {
@@ -57,7 +57,7 @@ public class BookDAO {
         return result;
     }
 
-    public static boolean removeBook(String id){
+    public static boolean removeBook(int id){
         Session session = SessionGet.getSessionFactory().openSession();
         BookDTO item = getBookById(id);
         if (item == null) {

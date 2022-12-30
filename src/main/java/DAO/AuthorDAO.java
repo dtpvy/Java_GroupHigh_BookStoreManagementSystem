@@ -42,7 +42,7 @@ public class AuthorDAO {
         }
     }
 
-    public static AuthorDTO getAuthorById(String id){
+    public static AuthorDTO getAuthorById(int id){
         AuthorDTO result = null;
         Session session = SessionGet.getSessionFactory().openSession();
         try {
@@ -57,7 +57,7 @@ public class AuthorDAO {
         return result;
     }
 
-    public static boolean removeAuthor(String id){
+    public static boolean removeAuthor(int id){
         Session session = SessionGet.getSessionFactory().openSession();
         AuthorDTO item = getAuthorById(id);
         if (item == null) {

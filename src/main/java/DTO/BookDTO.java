@@ -10,15 +10,16 @@ public class BookDTO {
 
     }
 
-    @Id
+    @Id 
+    @GeneratedValue (strategy=GenerationType.IDENTITY)
     @Column (name="id")
-    private String id;
+    private int id;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -118,8 +119,7 @@ public class BookDTO {
         this.updatedAt = updatedAt;
     }
 
-    public BookDTO(String id, CategoryDTO category, PublisherDTO publisher, AuthorDTO author, String name, String description, double price, int quantity, Timestamp createdAt, Timestamp updatedAt) {
-        this.id = id;
+    public BookDTO(CategoryDTO category, PublisherDTO publisher, AuthorDTO author, String name, String description, double price, int quantity, Timestamp createdAt, Timestamp updatedAt) {
         this.category = category;
         this.publisher = publisher;
         this.author = author;

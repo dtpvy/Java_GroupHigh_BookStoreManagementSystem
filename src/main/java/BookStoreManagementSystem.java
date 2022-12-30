@@ -3,14 +3,15 @@ import DAO.*;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Date;
 
 public class BookStoreManagementSystem {
     public static void main(String[] args){
 
-        BookDTO book = BookDAO.getBookById("001");
-        CategoryDTO cat = CategoryDAO.getCategoryById("001");
-        AuthorDTO aut = AuthorDAO.getAuthorById("001");
-        PublisherDTO pub = PublisherDAO.getPublisherById("001");
+        // BookDTO book = BookDAO.getBookById(1);
+        CategoryDTO cat = CategoryDAO.getCategoryById(1);
+        AuthorDTO aut = AuthorDAO.getAuthorById(1);
+        PublisherDTO pub = PublisherDAO.getPublisherById(1);
 
 //        System.out.println(cat);
 
@@ -25,8 +26,18 @@ public class BookStoreManagementSystem {
 
 //        BookDAO.removeBook("003");
 //
+        
+        // BookDTO book = BookDAO.getBookById(1);
+        // System.out.println(book);
+        Date date = new Date();
+        Timestamp cur_date = new Timestamp(date.getTime());
+        BookDTO book = new BookDTO(cat, pub, aut, "test book 1", "this is a test book", 25.5, 100, cur_date, cur_date);
+
+        BookDAO.addBook(book);
+
         List<BookDTO>  list = BookDAO.getBookList();
         System.out.println(cat + "\n" + aut + "\n" + pub);
         System.out.println(list);
+
     }
 }

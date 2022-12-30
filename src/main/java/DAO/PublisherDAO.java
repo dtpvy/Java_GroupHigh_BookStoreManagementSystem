@@ -42,7 +42,7 @@ public class PublisherDAO {
         }
     }
 
-    public static PublisherDTO getPublisherById(String id){
+    public static PublisherDTO getPublisherById(int id){
         PublisherDTO result = null;
         Session session = SessionGet.getSessionFactory().openSession();
         try {
@@ -57,7 +57,7 @@ public class PublisherDAO {
         return result;
     }
 
-    public static boolean removePublisher(String id){
+    public static boolean removePublisher(int id){
         Session session = SessionGet.getSessionFactory().openSession();
         PublisherDTO item = getPublisherById(id);
         if (item == null) {
