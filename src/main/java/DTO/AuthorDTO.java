@@ -11,6 +11,7 @@ public class AuthorDTO {
     }
 
     @Id
+    @GeneratedValue (strategy=GenerationType.IDENTITY)
     @Column (name ="id")
     private int id;
     public int getId() {

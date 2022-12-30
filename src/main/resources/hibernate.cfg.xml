@@ -33,5 +33,7 @@
         <mapping class="DTO.AuthorDTO"/>
         <mapping class="DTO.PublisherDTO"/>
         <mapping class="DTO.BookDTO"/>
+        <mapping class="DTO.AccountDTO"/>
+        <mapping class="DTO.AdminDTO"/>
     </session-factory>
 </hibernate-configuration>
