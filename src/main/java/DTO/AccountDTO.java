@@ -46,7 +46,7 @@ public abstract class AccountDTO {
         this.password = password;
     }
 
-    boolean comparePassword(String password){
+    public boolean comparePassword(String password){
         return this.password.equals(password);
     }
 
