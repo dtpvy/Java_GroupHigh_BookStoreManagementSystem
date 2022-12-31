@@ -1,5 +1,6 @@
 package GUI;
 
+import DTO.AccountDTO;
 import DTO.EmployeeDTO;
 
 import javax.swing.*;
@@ -12,11 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainFrame extends JFrame {
-    EmployeeDTO employee;
+    AccountDTO account;
     JPanel bodyPanel;
     List<TabMenu> tabMenus = new ArrayList<>();
-    public MainFrame(EmployeeDTO employee) {
-        this.employee = employee;
+    public MainFrame(AccountDTO account) {
+        this.account = account;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
 
@@ -32,7 +33,7 @@ public class MainFrame extends JFrame {
         image.setBackground(Color.orange);
         image.setLayout(new GridLayout(1,1));
         image.add(picLabel);
-        TabMenu name = new TabMenu("Tên: " + employee.getName(), false);
+        TabMenu name = new TabMenu("Tên: " + account.getUsername(), false);
         menu.setBackground(Color.orange);
         menu.add(image);
         menu.add(name);
@@ -139,7 +140,7 @@ public class MainFrame extends JFrame {
         menu.add(orderButton);
         menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
 
-        bodyPanel = new Account(employee);
+        bodyPanel = new Account(account);
         bodyPanel.setPreferredSize(new Dimension(800, 800));
         bodyPanel.setMaximumSize(new Dimension(800, 800)); // set max = pref
         bodyPanel.setBorder(BorderFactory.createTitledBorder(""));
@@ -158,7 +159,7 @@ public class MainFrame extends JFrame {
     }
     public void onAccountTab() {
         remove(bodyPanel);
-        bodyPanel = new Account(employee);
+        bodyPanel = new Account(account);
         bodyPanel.setPreferredSize(new Dimension(800, 800));
         bodyPanel.setMaximumSize(new Dimension(800, 800)); // set max = pref
         bodyPanel.setBorder(BorderFactory.createTitledBorder(""));

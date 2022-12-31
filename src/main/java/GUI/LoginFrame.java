@@ -1,5 +1,7 @@
 package GUI;
 
+import BLO.AccountBLO;
+import DTO.AccountDTO;
 import DTO.EmployeeDTO;
 
 import javax.swing.*;
@@ -11,8 +13,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class LoginFrame extends JFrame {
-    EmployeeDTO employee;
-    private String id;
+    AccountDTO account;
+    private String username;
     private String password;
     private JLabel status = new JLabel("", JLabel.RIGHT);
     public LoginFrame() {
@@ -45,7 +47,7 @@ public class LoginFrame extends JFrame {
         panelSubmit.setLayout(new FlowLayout(FlowLayout.CENTER));
         panelStatus.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-        JLabel nameLabel = new JLabel("Mã nhân viên: ", JLabel.LEFT);
+        JLabel nameLabel = new JLabel("Tài khoản: ", JLabel.LEFT);
         JLabel pwLabel = new JLabel("Mật khẩu: ", JLabel.LEFT);
 
         JTextField userText = new JTextField(6);
@@ -54,7 +56,7 @@ public class LoginFrame extends JFrame {
         JButton loginButton = new JButton("Đăng nhập");
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                id = userText.getText();
+                username = userText.getText();
                 password = new String(passwordText.getPassword());
                 onSubmit();
             }
@@ -67,6 +69,8 @@ public class LoginFrame extends JFrame {
         panelPassword.add(passwordText);
 
         panelSubmit.add(loginButton);
+
+        panelStatus.add(status);
 
         form.add(headerLabel);
         form.add(panelLogin);
@@ -83,10 +87,14 @@ public class LoginFrame extends JFrame {
         setVisible(true);
     }
     private void onSubmit() {
-        employee = new EmployeeDTO(id);
-        setVisible(false);
+        account = AccountBLO.checkUserLogin(username, password);
+        if (account == null) {
+            status.setText("Tài khoản hoặc mật khẩu không hợp lệ");
+        } else {
+            setVisible(false);
+        }
     }
-    public EmployeeDTO getEmployee() {
-        return employee;
+    public AccountDTO getEmployee() {
+        return account;
     }
 }

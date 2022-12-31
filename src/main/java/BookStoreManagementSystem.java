@@ -44,8 +44,8 @@ public class BookStoreManagementSystem {
 
         // List<AdminDTO> admins = AdminDAO.getAdminList();
         // System.out.println(admins);
-        // AdminDTO admin = new AdminDTO("thinh", "20127213", "Pham huy cuong thinh", "", "", cur_date, cur_date);
-        // AdminDAO.addAdmin(admin);
+//         AdminDTO admin = new AdminDTO("thinh", "20127213", "Pham huy cuong thinh", "", "", cur_date, cur_date);
+//         AdminDAO.addAdmin(admin);
 
         // AccountDTO acc = AccountDAO.getAccountByUsername("khoildm");
         // System.out.println(acc);
@@ -54,7 +54,7 @@ public class BookStoreManagementSystem {
         // System.out.println(BLO.AccountBLO.checkUserLogin("khoildm", "25asdf02"));
         // CustomerDTO c = new CustomerDTO("khoi", "0778661298", cur_date, cur_date);
         // CustomerDAO.addCustomer(c);
-        EmployeeDTO e = new EmployeeDTO("khoie","123", "khoi le dang minh", "0778661298", null, null, cur_date, cur_date, cur_date, false);
-        EmployeeDAO.addAdmin(e);
+//        EmployeeDTO e = new EmployeeDTO("khoie","123", "khoi le dang minh", "0778661298", null, null, cur_date, cur_date, cur_date, false);
+//        EmployeeDAO.addAdmin(e);
     }
 }

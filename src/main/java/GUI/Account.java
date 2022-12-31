@@ -1,5 +1,6 @@
 package GUI;
 
+import DTO.AccountDTO;
 import DTO.EmployeeDTO;
 
 import javax.swing.*;
@@ -9,9 +10,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 public class Account extends JPanel {
-    EmployeeDTO employee;
-    public Account(EmployeeDTO employee) {
-        this.employee = employee;
+    AccountDTO account;
+    public Account(AccountDTO account) {
+        this.account = account;
 
         JPanel header = new JPanel();
         header.setLayout(new GridLayout(1, 2));
@@ -31,8 +32,8 @@ public class Account extends JPanel {
         JLabel label1 = new JLabel("Chức vụ:");
         JLabel label2 = new JLabel("Ngày tham gia:");
         JLabel label3 = new JLabel("Cập nhật lần cuối:");
-        JLabel value = new JLabel(employee.getId());
-        JLabel value1 = new JLabel(employee.getTitleRole());
+        JLabel value = new JLabel(account.getUsername());
+        JLabel value1 = new JLabel(account.getAccessType() ? "Quản lý" : "Nhân viên");
         JLabel value2 = new JLabel("11:11:11 26/12/2022");
         JLabel value3 = new JLabel("11:11:11 26/12/2022");
         info.add(label);
