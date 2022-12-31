@@ -42,4 +42,59 @@ public class AdminDAO {
             session.close();
         }
     }
+
+    public static AdminDTO getAdminById(int id){
+        AdminDTO result = null;
+        Session session = SessionGet.getSessionFactory().openSession();
+        try {
+            result = (AdminDTO) session.get(AdminDTO.class, id);
+        } catch (HibernateException ex) {
+            //Log the exception
+            System.err.println(ex);
+            return null;
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    public static boolean removeAdmin(int id){
+        Session session = SessionGet.getSessionFactory().openSession();
+        AdminDTO item = getAdminById(id);
+        if (item == null) {
+            return false;
+        }
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.delete(item);
+            transaction.commit();
+        } catch (HibernateException ex) {
+            //Log the exception
+            transaction.rollback();
+            System.err.println(ex);
+            return false;
+        } finally {
+            session.close();
+        }
+        return true;
+    }
+
+    public static boolean updateAdmin(AdminDTO admin){
+        Session session = SessionGet.getSessionFactory().openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            session.update(admin);
+            transaction.commit();
+        } catch (HibernateException ex) {
+            //Log the exception
+            transaction.rollback();
+            System.err.println(ex);
+            return false;
+        } finally {
+            session.close();
+        }
+        return true;
+    }
 }

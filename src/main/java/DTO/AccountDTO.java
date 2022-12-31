@@ -46,6 +46,10 @@ public abstract class AccountDTO {
         this.password = password;
     }
 
+    boolean comparePassword(String password){
+        return this.password.equals(password);
+    }
+
     @Column (name = "access_type")
     private boolean accessType;
 
@@ -61,5 +65,10 @@ public abstract class AccountDTO {
         this.username = username;
         this.password = password;
         this.accessType = accessType;
+    }
+
+
+    public String toString(){
+        return "Account{ id: " + id + ", username: " + username + ", password: " + password + ", type: " + (accessType ? "ADMIN" : "EMPLOYEE") + "}";
     }
 }
