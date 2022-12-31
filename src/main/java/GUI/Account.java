@@ -1,6 +1,5 @@
 package GUI;
 
-import DTO.AccountDTO;
 import DTO.EmployeeDTO;
 
 import javax.swing.*;
@@ -10,8 +9,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 public class Account extends JPanel {
-    AccountDTO account;
-    public Account(AccountDTO account) {
+    EmployeeDTO account;
+    public Account(EmployeeDTO account) {
         this.account = account;
 
         JPanel header = new JPanel();

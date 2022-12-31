@@ -1,6 +1,5 @@
 package GUI;
 
-import DTO.AccountDTO;
 import DTO.EmployeeDTO;
 
 import javax.swing.*;
@@ -13,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainFrame extends JFrame {
-    AccountDTO account;
+    EmployeeDTO account;
     JPanel bodyPanel;
     List<TabMenu> tabMenus = new ArrayList<>();
-    public MainFrame(AccountDTO account) {
+    public MainFrame(EmployeeDTO account) {
         this.account = account;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
