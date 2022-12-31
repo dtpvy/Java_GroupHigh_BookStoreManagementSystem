@@ -100,12 +100,12 @@ public class BookDTO {
     @Column (name = "created_at")
     private Timestamp createdAt;
 
-    public Timestamp getCreatedtAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedtAt(Timestamp createdtAt) {
-        this.createdAt = createdtAt;
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Column (name = "updated_at")

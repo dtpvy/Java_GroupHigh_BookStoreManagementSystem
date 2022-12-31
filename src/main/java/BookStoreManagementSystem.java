@@ -48,6 +48,10 @@ public class BookStoreManagementSystem {
         // System.out.println(acc);
         // AdminDAO.removeAdmin(2);
 
-        System.out.println(BLO.AccountBLO.checkUserLogin("khoildm", "25asdf02"));
+        // System.out.println(BLO.AccountBLO.checkUserLogin("khoildm", "25asdf02"));
+        // CustomerDTO c = new CustomerDTO("khoi", "0778661298", cur_date, cur_date);
+        // CustomerDAO.addCustomer(c);
+        EmployeeDTO e = new EmployeeDTO("khoie","123", "khoi le dang minh", "0778661298", null, null, cur_date, cur_date, cur_date, false);
+        EmployeeDAO.addAdmin(e);
     }
 }

@@ -1,7 +1,6 @@
 package DTO;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Table (name = "accounts")
