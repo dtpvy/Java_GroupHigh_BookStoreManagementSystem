@@ -6,6 +6,8 @@ import DTO.EmployeeDTO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
@@ -20,6 +22,7 @@ public class Account extends JPanel {
         Image scaleImage = icon.getImage().getScaledInstance(150, 150,Image.SCALE_DEFAULT);
         JLabel picLabel = new JLabel(new ImageIcon(scaleImage));
         JButton changeImg = new JButton("Chọn ảnh đại diện");
+        picLabel.setBorder(new EmptyBorder(0, 0, 10, 0));
         JPanel image = new JPanel();
         image.add(picLabel);
         image.add(changeImg);
@@ -45,6 +48,30 @@ public class Account extends JPanel {
         info.add(label3);
         info.add(value3);
         header.add(info);
+
+        JPanel actionPanel = new JPanel();
+        actionPanel.setLayout(new GridLayout(4,1));
+
+        JButton logoutButton = new JButton("Đăng xuất");
+        logoutButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                JFrame topFrame = (JFrame) SwingUtilities.getRoot(logoutButton);
+                topFrame.setVisible(false);
+            }
+        });
+        JButton cpButton = new JButton("Đổi mật khẩu");
+        cpButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                new ChangePassword();
+            }
+        });
+        actionPanel.add(new JPanel());
+        actionPanel.add(logoutButton);
+        actionPanel.add(cpButton);
+        actionPanel.add(new JPanel());
+        actionPanel.setBorder( new EmptyBorder(0, 20, 0, 0) );
+        header.add(actionPanel);
+
         header.setBorder( new EmptyBorder(20, 50, 20, 50) );
         add(header);
 
@@ -98,5 +125,7 @@ public class Account extends JPanel {
         body.setMaximumSize(new Dimension(600, 500));
         body.setBorder( new EmptyBorder(50, 0, 50, 0) );
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setPreferredSize(new Dimension(800, 700));
+        setMaximumSize(new Dimension(800, 700));
     }
 }

@@ -16,15 +16,16 @@ public class MainFrame extends JFrame {
     AccountDTO account;
     JPanel bodyPanel;
     List<TabMenu> tabMenus = new ArrayList<>();
-    public MainFrame(AccountDTO account) {
-        this.account = account;
+
+    void buildUI() {
+        setTitle("Hệ thống quản lý cửa hàng sách");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
 
         JPanel menu = new JPanel();
         menu.setAlignmentX(Component.CENTER_ALIGNMENT);
-        menu.setPreferredSize(new Dimension(200, 800));
-        menu.setMaximumSize(new Dimension(200, 800));
+        menu.setPreferredSize(new Dimension(200, 700));
+        menu.setMaximumSize(new Dimension(200, 700));
 
         ImageIcon icon = new ImageIcon("src/main/resources/images/loginbg.png");
         Image scaleImage = icon.getImage().getScaledInstance(150, 150,Image.SCALE_DEFAULT);
@@ -141,13 +142,26 @@ public class MainFrame extends JFrame {
         menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
 
         bodyPanel = new Account(account);
-        bodyPanel.setPreferredSize(new Dimension(800, 800));
-        bodyPanel.setMaximumSize(new Dimension(800, 800)); // set max = pref
+        bodyPanel.setPreferredSize(new Dimension(800, 700));
+        bodyPanel.setMaximumSize(new Dimension(800, 700)); // set max = pref
         bodyPanel.setBorder(BorderFactory.createTitledBorder(""));
 
         getContentPane().add(menu);
         getContentPane().add(bodyPanel);
+        setSize(1000, 700);
+        setLocationRelativeTo(null);
         pack();
+    }
+    public MainFrame() {
+        if (account == null) return;
+        buildUI();
+    }
+
+    public void setAccount(AccountDTO account) {
+        this.account = account;
+        getContentPane().removeAll();
+        buildUI();
+        repaint();
     }
     public void showFrame() {
         setVisible(true);

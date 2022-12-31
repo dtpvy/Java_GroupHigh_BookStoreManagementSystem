@@ -11,7 +11,7 @@ import java.awt.event.WindowEvent;
 public class App {
     AccountDTO account;
     LoginFrame loginFrame = new LoginFrame();
-    MainFrame mainFrame;
+    MainFrame mainFrame = mainFrame = new MainFrame();;
     public void loadApp() {
         if (account == null) {
             loginFrame.showFrame();
@@ -23,8 +23,15 @@ public class App {
                 }
             });
         } else {
-            mainFrame = new MainFrame(account);
+            mainFrame.setAccount(account);
             mainFrame.showFrame();
+            mainFrame.addComponentListener(new ComponentAdapter() {
+                public void componentHidden(ComponentEvent e) {
+                    /* code run when component hidden*/
+                    account = null;
+                    loadApp();
+                }
+            });
         }
     }
 }
