@@ -11,14 +11,15 @@ public class CategoryDTO {
     }
 
     @Id
+    @GeneratedValue (strategy=GenerationType.IDENTITY)
     @Column (name = "id")
-    private String id;
+    private int id;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -56,8 +57,7 @@ public class CategoryDTO {
     }
 
 
-    public CategoryDTO(String id, String name, Timestamp createdAt, Timestamp updatedAt){
-        this.id = id;
+    public CategoryDTO(String name, Timestamp createdAt, Timestamp updatedAt){
         this.name = name;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;

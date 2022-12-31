@@ -11,13 +11,14 @@ public class AuthorDTO {
     }
 
     @Id
+    @GeneratedValue (strategy=GenerationType.IDENTITY)
     @Column (name ="id")
-    private String id;
-    public String getId() {
+    private int id;
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -75,8 +76,7 @@ public class AuthorDTO {
         this.updatedAt = updatedAt;
     }
 
-    public AuthorDTO(String id, String name, String description, Timestamp dob, Timestamp createdAt, Timestamp updatedAt){
-        this.id = id;
+    public AuthorDTO(String name, String description, Timestamp dob, Timestamp createdAt, Timestamp updatedAt){
         this.name = name;
         this.description = description;
         this.dob = dob;

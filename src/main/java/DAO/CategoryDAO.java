@@ -44,7 +44,7 @@ public class CategoryDAO {
         }
     }
 
-    public static CategoryDTO getCategoryById(String id){
+    public static CategoryDTO getCategoryById(int id){
         CategoryDTO result = null;
         Session session = SessionGet.getSessionFactory().openSession();
         try {
@@ -59,7 +59,7 @@ public class CategoryDAO {
         return result;
     }
 
-    public static boolean removeCategory(String id){
+    public static boolean removeCategory(int id){
         Session session = SessionGet.getSessionFactory().openSession();
         CategoryDTO item = getCategoryById(id);
         if (item == null) {
