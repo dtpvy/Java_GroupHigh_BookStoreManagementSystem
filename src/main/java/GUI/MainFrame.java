@@ -1,6 +1,5 @@
 package GUI;
 
-import DTO.AccountDTO;
 import DTO.EmployeeDTO;
 
 import javax.swing.*;
@@ -13,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainFrame extends JFrame {
-    AccountDTO account;
+    EmployeeDTO account;
     JPanel bodyPanel;
     List<TabMenu> tabMenus = new ArrayList<>();
-
+    Account accountPanel = new Account();
     void buildUI() {
         setTitle("Hệ thống quản lý cửa hàng sách");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -141,7 +140,11 @@ public class MainFrame extends JFrame {
         menu.add(orderButton);
         menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
 
-        bodyPanel = new Account(account);
+        if (accountPanel.getAccount() == null) {
+            accountPanel.setAccount(account);
+            accountPanel.refresh();
+        }
+        bodyPanel = accountPanel;
         bodyPanel.setPreferredSize(new Dimension(800, 700));
         bodyPanel.setMaximumSize(new Dimension(800, 700)); // set max = pref
         bodyPanel.setBorder(BorderFactory.createTitledBorder(""));
@@ -157,7 +160,7 @@ public class MainFrame extends JFrame {
         buildUI();
     }
 
-    public void setAccount(AccountDTO account) {
+    public void setAccount(EmployeeDTO account) {
         this.account = account;
         getContentPane().removeAll();
         buildUI();
@@ -173,7 +176,8 @@ public class MainFrame extends JFrame {
     }
     public void onAccountTab() {
         remove(bodyPanel);
-        bodyPanel = new Account(account);
+        accountPanel.refresh();
+        bodyPanel = accountPanel;
         bodyPanel.setPreferredSize(new Dimension(800, 800));
         bodyPanel.setMaximumSize(new Dimension(800, 800)); // set max = pref
         bodyPanel.setBorder(BorderFactory.createTitledBorder(""));

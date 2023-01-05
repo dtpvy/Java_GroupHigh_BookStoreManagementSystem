@@ -1,6 +1,5 @@
 package GUI;
 
-import DTO.AccountDTO;
 import DTO.EmployeeDTO;
 
 import java.awt.event.ComponentAdapter;
@@ -9,9 +8,9 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class App {
-    AccountDTO account;
+    EmployeeDTO account;
     LoginFrame loginFrame = new LoginFrame();
-    MainFrame mainFrame = mainFrame = new MainFrame();;
+    MainFrame mainFrame = new MainFrame();;
     public void loadApp() {
         if (account == null) {
             loginFrame.showFrame();

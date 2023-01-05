@@ -1,7 +1,7 @@
 package DAO;
 
 import DTO.EmployeeDTO;
-import DTO.AccountDTO;
+import DTO.EmployeeDTO;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -11,10 +11,10 @@ import java.util.List;
 
 public class EmployeeDAO {
     private static List<EmployeeDTO> employeeList;
-    public static List<EmployeeDTO> getAdminList(){
+    public static List<EmployeeDTO> getEmployeeList(){
         Session session = SessionGet.getSessionFactory().openSession();
         try {
-            String hql = "FROM AdminDTO ORDER BY id ASC";
+            String hql = "FROM EmployeeDTO ORDER BY id ASC";
             Query query = session.createQuery(hql);
             employeeList = query.list();
         } catch (HibernateException ex) {
@@ -26,7 +26,7 @@ public class EmployeeDAO {
         return employeeList;
     }
 
-    public static void addAdmin(EmployeeDTO admin){
+    public static void addEmployee(EmployeeDTO admin){
         Session session = SessionGet.getSessionFactory().openSession();
         Transaction transaction = null;
         try {
@@ -52,6 +52,23 @@ public class EmployeeDAO {
             //Log the exception
             System.err.println(ex);
             return null;
+        } finally {
+            session.close();
+        }
+        return result;
+    }
+
+    public static EmployeeDTO getEmployeeByUsername(String username){
+        EmployeeDTO result = null;
+        Session session = SessionGet.getSessionFactory().openSession();
+        try {
+            String hql = "FROM EmployeeDTO WHERE username=:username";
+            Query query = session.createQuery(hql);
+            query.setParameter("username", username);
+            result = (EmployeeDTO) query.uniqueResult();
+        } catch (HibernateException ex) {
+            //Log the exception
+            System.err.println(ex);
         } finally {
             session.close();
         }

@@ -1,7 +1,6 @@
 package GUI;
 
-import BLO.AccountBLO;
-import DTO.AccountDTO;
+import BLO.EmployeeBLO;
 import DTO.EmployeeDTO;
 
 import javax.swing.*;
@@ -13,7 +12,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class LoginFrame extends JFrame {
-    AccountDTO account;
+    EmployeeDTO account;
     private String username;
     private String password;
     private JLabel status = new JLabel("", JLabel.RIGHT);
@@ -102,7 +101,7 @@ public class LoginFrame extends JFrame {
         setVisible(true);
     }
     private void onSubmit() {
-        account = AccountBLO.checkUserLogin(username, password);
+        account = EmployeeBLO.checkUserLogin(username, password);
         if (account == null) {
             status.setText("Tài khoản hoặc mật khẩu không hợp lệ");
             status.setForeground(Color.red);
@@ -112,7 +111,7 @@ public class LoginFrame extends JFrame {
             setVisible(false);
         }
     }
-    public AccountDTO getEmployee() {
+    public EmployeeDTO getEmployee() {
         return account;
     }
 }

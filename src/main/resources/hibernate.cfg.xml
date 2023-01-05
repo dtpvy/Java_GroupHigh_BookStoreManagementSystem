@@ -33,8 +33,8 @@
         <mapping class="DTO.AuthorDTO"/>
         <mapping class="DTO.PublisherDTO"/>
         <mapping class="DTO.BookDTO"/>
-        <mapping class="DTO.AccountDTO"/>
-        <mapping class="DTO.AdminDTO"/>
+        <!-- <mapping class="DTO.AccountDTO"/>
+        <mapping class="DTO.AdminDTO"/> -->
         <mapping class="DTO.EmployeeDTO"/>
         <mapping class="DTO.CustomerDTO"/>
     </session-factory>
