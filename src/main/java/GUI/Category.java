@@ -15,6 +15,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,18 +26,14 @@ import java.util.List;
 public class Category extends JPanel {
     List<CategoryDTO> catList;
     CategoryDTO catActive;
-
+    String search = "";
+    String sortType = "id";
+    String sort = "ASC";
+    String[] columnNames = { "ID", "Tên thể loại", "Trạng thái", "Ngày tạo",
+            "Cập nhật lần cuối" };
     void buildUI() {
         JPanel controlPanel = new JPanel();
-        String[][] data =  new String[catList.size()][4];
-        for (int i = 0; i < catList.size(); i++) {
-            System.out.println(catList.get(i).toString());
-            data[i] = new String[]{String.valueOf(catList.get(i).getId()), catList.get(i).getName(), catList.get(i).getDisable() ? "Enable" : "Disable", TimeUtil.formatDate(catList.get(i).getCreatedAt()), TimeUtil.formatDate(catList.get(i).getUpdatedAt())};
-        }
-        String[] columnNames = { "ID", "Tên thể loại", "Trạng thái", "Ngày tạo",
-                "Cập nhật lần cuối" };
-        DefaultTableModel tableModel = new DefaultTableModel();
-        JTable jTable = new JTable(new DefaultTableModel(data, columnNames)) {
+        JTable jTable = new JTable(new DefaultTableModel(getTableData(), columnNames)) {
             public boolean isCellEditable(int row, int column) {
                 return false;
             };
@@ -143,10 +141,43 @@ public class Category extends JPanel {
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.X_AXIS));
         JTextField searchInput = new JTextField(20);
         JButton searchSubmit = new JButton("Tìm kiếm");
-        String sortType[] = { "Tên", "ID" };
-        JComboBox cb1 = new JComboBox(sortType);
-        String sort[] = { "Tăng dần", "Giảm dần" };
-        JComboBox cb2 = new JComboBox(sort);
+        searchSubmit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                search = searchInput.getText();
+                setCatList();
+                DefaultTableModel dtm = (DefaultTableModel) jTable.getModel();
+                dtm.setDataVector(getTableData(), columnNames);
+            }
+        });
+        String sortTypeArr[] = { "ID", "Tên" };
+        JComboBox cb1 = new JComboBox(sortTypeArr);
+        cb1.addItemListener(new ItemListener()
+        {
+            @Override
+            public void itemStateChanged(ItemEvent e)
+            {
+                sortType = ((String) cb1.getSelectedItem()).equals("Tên") ? "name" : "id";
+                setCatList();
+                DefaultTableModel dtm = (DefaultTableModel) jTable.getModel();
+                dtm.setDataVector(getTableData(), columnNames);
+            }
+        });
+        String sortArr[] = { "Tăng dần", "Giảm dần" };
+        JComboBox cb2 = new JComboBox(sortArr);
+        cb2.addItemListener(new ItemListener()
+        {
+            @Override
+            public void itemStateChanged(ItemEvent e)
+            {
+                sort = ((String) cb2.getSelectedItem()).equals("Tăng dần") ? "ASC" : "DESC";
+                System.out.println(sort);
+                setCatList();
+                DefaultTableModel dtm = (DefaultTableModel) jTable.getModel();
+                dtm.setDataVector(getTableData(), columnNames);
+            }
+        });
+
         menuPanel.add(searchInput);
         menuPanel.add(searchSubmit);
         menuPanel.add(cb1);
@@ -190,13 +221,21 @@ public class Category extends JPanel {
     }
 
     public void refresh() {
-        System.out.println("alo");
-        catList = CategoryDAO.getCategoryList();
+        setCatList();
         removeAll();
         buildUI();
     }
     public void setCatActive(CategoryDTO catActive) {
         this.catActive = catActive;
-
+    }
+    public void setCatList() {
+        this.catList = CategoryBLO.getCategoryList(search, sortType, sort);
+    }
+    public String[][] getTableData() {
+        String[][] data = new String[catList.size()][5];
+        for (int i = 0; i < catList.size(); i++) {
+            data[i] = new String[]{String.valueOf(catList.get(i).getId()), catList.get(i).getName(), catList.get(i).getDisable() ? "Enable" : "Disable", TimeUtil.formatDate(catList.get(i).getCreatedAt()), TimeUtil.formatDate(catList.get(i).getUpdatedAt())};
+        }
+        return data;
     }
 }

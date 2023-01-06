@@ -2,6 +2,7 @@ package DAO;
 
 import DTO.CategoryDTO;
 
+import DTO.EmployeeDTO;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -79,6 +80,24 @@ public class CategoryDAO {
             session.close();
         }
         return true;
+    }
+
+    public static List<CategoryDTO> getCategoryList(String search, String sortType, String sort){
+        EmployeeDTO result = null;
+        Session session = SessionGet.getSessionFactory().openSession();
+        try {
+            String hql = "FROM CategoryDTO WHERE name LIKE :search ORDER BY " + sortType + " " + sort;
+            Query query = session.createQuery(hql);
+            query.setParameter("search", "%" + search + "%");
+            System.out.println(query.list());
+            categoryList = query.list();
+        } catch (HibernateException ex) {
+            //Log the exception
+            System.err.println(ex);
+        } finally {
+            session.close();
+        }
+        return categoryList;
     }
 
     public static boolean updateCategory(CategoryDTO category){

@@ -7,6 +7,8 @@ import DTO.EmployeeDTO;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class CategoryBLO {
     public static void updateCategoryInfo(CategoryDTO category){
@@ -30,5 +32,9 @@ public class CategoryBLO {
         CategoryDTO category = new CategoryDTO(name, cur_date, cur_date, disable);
         CategoryDAO.addCategory(category);
         return category;
+    }
+
+    public static List<CategoryDTO> getCategoryList(String search, String sortType, String sort){
+        return CategoryDAO.getCategoryList(search, sortType.toLowerCase(), sort);
     }
 }
