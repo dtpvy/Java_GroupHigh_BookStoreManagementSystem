@@ -10,6 +10,21 @@ public class CategoryDTO {
 
     }
 
+    public CategoryDTO(int id, String name, Timestamp createdAt, Timestamp updatedAt, Boolean disable){
+        this.id = id;
+        this.name = name;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.disable = disable;
+    }
+
+    public CategoryDTO(String name, Timestamp createdAt, Timestamp updatedAt, Boolean disable){
+        this.name = name;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.disable = disable;
+    }
+
     @Id
     @GeneratedValue (strategy=GenerationType.IDENTITY)
     @Column (name = "id")
@@ -32,6 +47,17 @@ public class CategoryDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Column (name = "disable")
+    private boolean disable;
+
+    public boolean getDisable(){
+        return disable;
+    }
+
+    public void setDisable(boolean disable){
+        this.disable = disable;
     }
 
     @Column (name = "created_at")

@@ -16,6 +16,8 @@ public class MainFrame extends JFrame {
     JPanel bodyPanel;
     List<TabMenu> tabMenus = new ArrayList<>();
     Account accountPanel = new Account();
+    Employee employeePanel = new Employee();
+    Category categoryPanel = new Category();
     void buildUI() {
         setTitle("Hệ thống quản lý cửa hàng sách");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,7 +85,7 @@ public class MainFrame extends JFrame {
         categoryButton.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
                 inactiveTabs();
-                onAuthorTab();
+                onCategoryTab();
                 categoryButton.setIsActive(true);
             }
         });
@@ -204,7 +206,16 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
     public void onCategoryTab() {
-        setVisible(true);
+        remove(bodyPanel);
+        categoryPanel.refresh();
+        bodyPanel = categoryPanel;
+        bodyPanel.setPreferredSize(new Dimension(800, 800));
+        bodyPanel.setMaximumSize(new Dimension(800, 800)); // set max = pref
+        bodyPanel.setBorder(BorderFactory.createTitledBorder(""));
+
+        add(bodyPanel);
+        revalidate();
+        bodyPanel.repaint();
     }
     public void onBookTab() {
         setVisible(true);
