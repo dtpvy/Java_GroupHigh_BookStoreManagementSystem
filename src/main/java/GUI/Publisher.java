@@ -1,7 +1,7 @@
 package GUI;
 
-import DAO.AuthorDAO;
 import DTO.AuthorDTO;
+import DTO.PublisherDTO;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -10,10 +10,10 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.List;
 
-public class Author extends JPanel {
-    List<AuthorDTO> authorList;
-    AuthorDTO authorActive;
-    public Author() {
+public class Publisher extends JPanel {
+    List<PublisherDTO> PublisherList;
+    PublisherDTO publisherActive;
+    public Publisher() {
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.X_AXIS));
         JPanel actionPanel = new JPanel();
@@ -31,10 +31,7 @@ public class Author extends JPanel {
 
         JPanel formPanel = new JPanel();
         JTextField name = new JTextField(20);
-        JTextField phone = new JTextField(20);
-        JTextField email = new JTextField(20);
-        JTextField address = new JTextField(20);
-        JTextField txtDate = new JTextField(20);
+        JTextField description = new JTextField(20);
         formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
 
         JLabel labelName = new JLabel("Họ và tên:");
@@ -42,40 +39,20 @@ public class Author extends JPanel {
         namePanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         namePanel.add(labelName);
         namePanel.add(name);
-        JLabel labelEmail = new JLabel("Email:");
-        JPanel emailPanel = new JPanel();
-        emailPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        emailPanel.add(labelEmail);
-        emailPanel.add(email);
-        JLabel labelPhone = new JLabel("Số điện thoại:");
-        JPanel phonePanel = new JPanel();
-        phonePanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        phonePanel.add(labelPhone);
-        phonePanel.add(phone);
-        JLabel labelAddress = new JLabel("Địa chỉ:");
-        JPanel addressPanel = new JPanel();
-        addressPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        addressPanel.add(labelAddress);
-        addressPanel.add(address);
-        JLabel labelDate = new JLabel("Ngày sinh:");
-        JPanel datePanel = new JPanel();
-        datePanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        datePanel.add(labelDate);
-        datePanel.add(txtDate);
+        JLabel labelDescription = new JLabel("Giới thiệu:");
+        JPanel DescriptionPanel = new JPanel();
+        DescriptionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        DescriptionPanel.add(labelDescription);
+        DescriptionPanel.add(description);
 
         formPanel.add(namePanel);
-        formPanel.add(emailPanel);
-        formPanel.add(phonePanel);
-        formPanel.add(addressPanel);
-        formPanel.add(datePanel);
+        formPanel.add(DescriptionPanel);
 
         ImageIcon icon = new ImageIcon("src/main/resources/images/loginbg.png");
         Image scaleImage = icon.getImage().getScaledInstance(150, 150,Image.SCALE_DEFAULT);
         JLabel picLabel = new JLabel(new ImageIcon(scaleImage));
-        JButton changeImg = new JButton("Chọn ảnh đại diện");
         JPanel image = new JPanel();
         image.add(picLabel);
-        image.add(changeImg);
         image.setLayout(new BoxLayout(image, BoxLayout.Y_AXIS));
 
         controlPanel.add(image);
