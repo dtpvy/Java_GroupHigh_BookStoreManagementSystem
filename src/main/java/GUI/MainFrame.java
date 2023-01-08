@@ -203,7 +203,16 @@ public class MainFrame extends JFrame {
         bodyPanel.repaint();
     }
     public void onPublisherTab() {
-        setVisible(true);
+        remove(bodyPanel);
+        bodyPanel = new Publisher();
+        bodyPanel.setPreferredSize(new Dimension(800, 800));
+        bodyPanel.setMaximumSize(new Dimension(800, 800)); // set max = pref
+        bodyPanel.setBorder(BorderFactory.createTitledBorder(""));
+
+        add(bodyPanel);
+        revalidate();
+        bodyPanel.repaint();
+
     }
     public void onCategoryTab() {
         remove(bodyPanel);

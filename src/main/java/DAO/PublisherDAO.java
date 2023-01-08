@@ -96,4 +96,22 @@ public class PublisherDAO {
         }
         return true;
     }
+
+    public static List<PublisherDTO> getPublisherList(String search, String sortType, String sort) {
+        PublisherDTO result = null;
+        Session session = SessionGet.getSessionFactory().openSession();
+        try {
+            String hql = "FROM PublisherDTO WHERE name LIKE :search ORDER BY " + sortType + " " + sort;
+            Query query = session.createQuery(hql);
+            query.setParameter("search", "%" + search + "%");
+            System.out.println(query.list());
+            publisherList = query.list();
+        } catch (HibernateException ex) {
+            //Log the exception
+            System.err.println(ex);
+        } finally {
+            session.close();
+        }
+        return publisherList;
+    }
 }

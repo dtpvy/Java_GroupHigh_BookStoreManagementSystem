@@ -1,6 +1,12 @@
+import BLO.AuthorBLO;
+import BLO.BookBLO;
+import BLO.PublisherBLO;
 import DTO.*;
 import DAO.*;
 import GUI.App;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -10,7 +16,7 @@ import java.util.Set;
 import java.util.HashSet;
 
 public class BookStoreManagementSystem {
-    public static void main(String[] args){
+        public static void main(String[] args){
 
 //        App app = new App();
 //        app.loadApp();
@@ -33,32 +39,50 @@ public class BookStoreManagementSystem {
 
 //        BookDAO.removeBook("003");
 
-        
-        // BookDTO book = BookDAO.getBookById(1);
-        // System.out.println(book);
-        Date date = new Date();
-        Timestamp cur_date = new Timestamp(date.getTime());
-        // BookDTO book = new BookDTO(cat, pub, aut, "test book 1", "this is a test book", 25.5, 100, cur_date, cur_date);
 
-        // BookDAO.addBook(book);
+                // BookDTO book = BookDAO.getBookById(1);
+                // System.out.println(book);
+                Date date = new Date();
+                Timestamp cur_date = new Timestamp(date.getTime());
+                // BookDTO book = new BookDTO(cat, pub, aut, "test book 1", "this is a test book", 25.5, 100, cur_date, cur_date);
 
-        // List<BookDTO>  list = BookDAO.getBookList();
-        // System.out.println(cat + "\n" + aut + "\n" + pub);
-        // System.out.println(list);
+                // BookDAO.addBook(book);
 
-        // List<AdminDTO> admins = AdminDAO.getAdminList();
-        // System.out.println(admins);
+                // List<BookDTO>  list = BookDAO.getBookList();
+                // System.out.println(cat + "\n" + aut + "\n" + pub);
+                // System.out.println(list);
 
-
-        // System.out.println(BLO.AccountBLO.checkUserLogin("khoildm", "25asdf02"));
-        // CustomerDTO c = new CustomerDTO("khoi", "0778661298", cur_date, cur_date);
-        // CustomerDAO.addCustomer(c);
+                // List<AdminDTO> admins = AdminDAO.getAdminList();
+                // System.out.println(admins);
 
 
-        //BLO.EmployeeBLO.addAdmin("khoil", "25082002", "khoi le dang minh", "123456", "khoi@gmail.com", null, "ho chi minh", cur_date);
+                // System.out.println(BLO.AccountBLO.checkUserLogin("khoildm", "25asdf02"));
+                // CustomerDTO c = new CustomerDTO("khoi", "0778661298", cur_date, cur_date);
+                // CustomerDAO.addCustomer(c);
 
-        BookDTO b1 = BookDAO.getBookById(2);
-        BookDTO b2 = BookDAO.getBookById(4);
+
+                //BLO.EmployeeBLO.addAdmin("khoil", "25082002", "khoi le dang minh", "123456", "khoi@gmail.com", null, "ho chi minh", cur_date);
+
+//                BookDTO b1 = BookDAO.getBookById(2);
+//                BookDTO b2 = BookDAO.getBookById(4);
+//                System.out.println(b1);
+
+//                PublisherDTO p1 = PublisherDAO.getPublisherById(1);
+//                System.out.print(p1);
+
+                List<BookDTO> getBookList = BookBLO.getBookList("", "id", "asc");
+                for(BookDTO i:getBookList) {
+                        System.out.println(i);
+                }
+                List<AuthorDTO> getAuthorList = AuthorBLO.getAuthorList("", "id", "asc");
+                for(AuthorDTO i:getAuthorList) {
+                        System.out.println(i);
+                }
+                List<PublisherDTO> getPublisherList = PublisherBLO.getPublisherList("", "id", "asc");
+                for(PublisherDTO i:getPublisherList) {
+                        System.out.println(i);
+                }
+
 //
 //        PromotionDTO p = new PromotionDTO("123", "this is a code", 0.7, 100, true, true, cur_date, cur_date, cur_date, cur_date);
 //
@@ -116,11 +140,11 @@ public class BookStoreManagementSystem {
 
 //        BLO.EmployeeBLO.addAdmin("khoil", "25082002", "khoi le dang minh", "123456", "khoi@gmail.com", null, "ho chi minh", cur_date);
 
-        CategoryDTO c = CategoryDAO.getCategoryById(4);
-        EmployeeDTO e = EmployeeDAO.getEmployeeById(1);
-        List<OrderDTO> o = DAO.OrderDAO.getOrderList("id", "asc");
-        RevenueDTO r = new EmployeeRevenueDTO(e);
-        r.addBookByOrderList(o);
-        System.out.print(r.getTotalRevenue());
-    }
+//                CategoryDTO c = CategoryDAO.getCategoryById(4);
+//                EmployeeDTO e = EmployeeDAO.getEmployeeById(1);
+//                List<OrderDTO> o = DAO.OrderDAO.getOrderList("id", "asc");
+//                RevenueDTO r = new EmployeeRevenueDTO(e);
+//                r.addBookByOrderList(o);
+//                System.out.print(r.getTotalRevenue());
+        }
 }

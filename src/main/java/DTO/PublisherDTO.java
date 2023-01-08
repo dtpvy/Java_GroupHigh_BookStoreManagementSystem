@@ -65,11 +65,23 @@ public class PublisherDTO {
         this.updatedAt = updatedAt;
     }
 
-    public PublisherDTO(String name, String description, Timestamp dob, Timestamp createdAt, Timestamp updatedAt){
+    @Column (name = "disable")
+    private boolean disable;
+    public boolean isDisable() {
+        return disable;
+    }
+
+    public void setDisable(boolean disable) {
+        this.disable = disable;
+    }
+
+
+    public PublisherDTO(String name, String description, Timestamp createdAt, Timestamp updatedAt, boolean disable){
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.disable = disable;
     }
 
     public String toString(){

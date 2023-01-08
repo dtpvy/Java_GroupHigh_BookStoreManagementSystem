@@ -2,6 +2,7 @@ package DAO;
 
 import DTO.BookDTO;
 
+import DTO.PublisherDTO;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -95,5 +96,23 @@ public class BookDAO {
             session.close();
         }
         return true;
+    }
+
+    public static List<BookDTO> getBookList(String search, String sortType, String sort) {
+        BookDTO result = null;
+        Session session = SessionGet.getSessionFactory().openSession();
+        try {
+            String hql = "FROM BookDTO WHERE name LIKE :search ORDER BY " + sortType + " " + sort;
+            Query query = session.createQuery(hql);
+            query.setParameter("search", "%" + search + "%");
+            System.out.println(query.list());
+            bookList = query.list();
+        } catch (HibernateException ex) {
+            //Log the exception
+            System.err.println(ex);
+        } finally {
+            session.close();
+        }
+        return bookList;
     }
 }
