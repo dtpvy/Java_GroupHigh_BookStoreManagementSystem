@@ -81,4 +81,11 @@ public class EmployeeBLO {
         return npwd;
     }
 
+    public static Boolean changePassword(int id, String op, String np){
+        EmployeeDTO acc = EmployeeDAO.getEmployeeById(id);
+        if (!op.equals(acc.getPassword())) return false;
+        acc.setPassword(np);
+        EmployeeDAO.updateEmployee(acc);
+        return true;
+    }
 }

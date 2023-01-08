@@ -1,6 +1,5 @@
 package GUI;
 
-import DAO.AuthorDAO;
 import DTO.AuthorDTO;
 
 import javax.swing.*;
@@ -10,10 +9,10 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.List;
 
-public class Author extends JPanel {
+public class Employee extends JPanel {
     List<AuthorDTO> authorList;
     AuthorDTO authorActive;
-    public Author() {
+    public Employee() {
         JPanel controlPanel = new JPanel();
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.X_AXIS));
         JPanel actionPanel = new JPanel();
@@ -69,10 +68,8 @@ public class Author extends JPanel {
         ImageIcon icon = new ImageIcon("src/main/resources/images/loginbg.png");
         Image scaleImage = icon.getImage().getScaledInstance(150, 150,Image.SCALE_DEFAULT);
         JLabel picLabel = new JLabel(new ImageIcon(scaleImage));
-        JButton changeImg = new JButton("Chọn ảnh đại diện");
         JPanel image = new JPanel();
         image.add(picLabel);
-        image.add(changeImg);
         image.setLayout(new BoxLayout(image, BoxLayout.Y_AXIS));
 
         controlPanel.add(image);

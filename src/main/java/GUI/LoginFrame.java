@@ -17,6 +17,7 @@ public class LoginFrame extends JFrame {
     private String password;
     private JLabel status = new JLabel("", JLabel.RIGHT);
     public LoginFrame() {
+        setTitle("Đăng nhập");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
 
@@ -39,7 +40,7 @@ public class LoginFrame extends JFrame {
         JPanel panelPassword = new JPanel();
         JPanel panelSubmit = new JPanel();
         JPanel panelStatus = new JPanel();
-        JLabel headerLabel = new JLabel("LOGIN FORM", JLabel.CENTER);
+        JLabel headerLabel = new JLabel("ĐĂNG NHẬP HỆ THỐNG", JLabel.CENTER);
 
         panelLogin.setLayout(new GridLayout(2, 1));
         panelPassword.setLayout(new GridLayout(2,1));
@@ -57,7 +58,19 @@ public class LoginFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 username = userText.getText();
                 password = new String(passwordText.getPassword());
-                onSubmit();
+                loginButton.setEnabled(false);
+                userText.setEnabled(false);
+                passwordText.setEnabled(false);
+                status.setText("Đang đăng nhập...");
+                Thread t = new Thread() {
+                    public void run() {
+                        onSubmit();
+                        loginButton.setEnabled(true);
+                        userText.setEnabled(true);
+                        passwordText.setEnabled(true);
+                    }
+                };
+                t.start();
             }
         });
 
@@ -78,6 +91,8 @@ public class LoginFrame extends JFrame {
         form.add(panelStatus);
         form.setLayout(new GridLayout(5, 1));
 
+        setSize(600, 300);
+        setLocationRelativeTo(null);
         getContentPane().add(bg);
         getContentPane().add(form);
         pack();
@@ -89,7 +104,10 @@ public class LoginFrame extends JFrame {
         account = EmployeeBLO.checkUserLogin(username, password);
         if (account == null) {
             status.setText("Tài khoản hoặc mật khẩu không hợp lệ");
+            status.setForeground(Color.red);
         } else {
+            status.setText("");
+            status.setForeground(Color.BLACK);
             setVisible(false);
         }
     }

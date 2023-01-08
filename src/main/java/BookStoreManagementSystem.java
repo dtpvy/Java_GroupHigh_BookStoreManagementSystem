@@ -54,6 +54,7 @@ public class BookStoreManagementSystem {
         // CustomerDTO c = new CustomerDTO("khoi", "0778661298", cur_date, cur_date);
         // CustomerDAO.addCustomer(c);
 
+
         //BLO.EmployeeBLO.addAdmin("khoil", "25082002", "khoi le dang minh", "123456", "khoi@gmail.com", null, "ho chi minh", cur_date);
 
         BookDTO b1 = BookDAO.getBookById(2);
@@ -112,5 +113,8 @@ public class BookStoreManagementSystem {
 //        }
 //        DAO.PromotionDAO.updatePromotion(p);
 //        DAO.PromotionDAO.removePromotion(3);
+
+//        BLO.EmployeeBLO.addAdmin("khoil", "25082002", "khoi le dang minh", "123456", "khoi@gmail.com", null, "ho chi minh", cur_date);
+
     }
 }
