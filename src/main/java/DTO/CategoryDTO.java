@@ -10,7 +10,7 @@ public class CategoryDTO {
 
     }
 
-    public CategoryDTO(int id, String name, Timestamp createdAt, Timestamp updatedAt, Boolean disable){
+    public CategoryDTO(int id, String name, Timestamp createdAt, Timestamp updatedAt, boolean disable){
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
@@ -18,7 +18,7 @@ public class CategoryDTO {
         this.disable = disable;
     }
 
-    public CategoryDTO(String name, Timestamp createdAt, Timestamp updatedAt, Boolean disable){
+    public CategoryDTO(String name, Timestamp createdAt, Timestamp updatedAt, boolean disable){
         this.name = name;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
