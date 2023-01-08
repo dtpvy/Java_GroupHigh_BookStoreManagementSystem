@@ -2,6 +2,7 @@ package DTO;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "CATEGORIES")
@@ -10,7 +11,7 @@ public class CategoryDTO {
 
     }
 
-    public CategoryDTO(int id, String name, Timestamp createdAt, Timestamp updatedAt, Boolean disable){
+    public CategoryDTO(int id, String name, Timestamp createdAt, Timestamp updatedAt, boolean disable){
         this.id = id;
         this.name = name;
         this.createdAt = createdAt;
@@ -18,7 +19,7 @@ public class CategoryDTO {
         this.disable = disable;
     }
 
-    public CategoryDTO(String name, Timestamp createdAt, Timestamp updatedAt, Boolean disable){
+    public CategoryDTO(String name, Timestamp createdAt, Timestamp updatedAt, boolean disable){
         this.name = name;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -88,6 +89,15 @@ public class CategoryDTO {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CategoryDTO that = (CategoryDTO) o;
+        return id == that.id;
+    }
+
     public String toString(){
         return new String("Category:{id: " + id + ", name: " + name + ", " + ", createdAt: " + createdAt + ", updatedAt:" + updatedAt + "}");
     }

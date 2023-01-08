@@ -10,7 +10,7 @@
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/grouphighBookStoreDB</property>
         <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">123</property>
+        <property name="hibernate.connection.password">postgres</property>
 
         <!-- SQL dialect -->
         <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL92Dialect</property>
@@ -28,14 +28,16 @@
         <!-- Update database on startup -->
         <property name="hibernate.hbm2ddl.auto">update</property>
         <!-- Annotated entity classes -->
-<!--        <mapping resource="book.hbm.xml"/>-->
         <mapping class="DTO.CategoryDTO"/>
         <mapping class="DTO.AuthorDTO"/>
         <mapping class="DTO.PublisherDTO"/>
         <mapping class="DTO.BookDTO"/>
-        <!-- <mapping class="DTO.AccountDTO"/>
-        <mapping class="DTO.AdminDTO"/> -->
         <mapping class="DTO.EmployeeDTO"/>
         <mapping class="DTO.CustomerDTO"/>
+        <mapping class="DTO.PromotionBookDTO"/>
+        <mapping class="DTO.PromotionDTO"/>
+        <mapping class="DTO.OrderBookDTO"/>
+        <mapping class="DTO.OrderPromotionDTO"/>
+        <mapping class="DTO.OrderDTO"/>
     </session-factory>
 </hibernate-configuration>

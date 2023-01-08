@@ -2,6 +2,7 @@ package DTO;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "BOOKS")
@@ -129,6 +130,19 @@ public class BookDTO {
         this.quantity = quantity;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookDTO bookDTO = (BookDTO) o;
+        return id == bookDTO.id;// && Double.compare(bookDTO.price, price) == 0 && quantity == bookDTO.quantity && Objects.equals(category, bookDTO.category) && Objects.equals(publisher, bookDTO.publisher) && Objects.equals(author, bookDTO.author) && Objects.equals(name, bookDTO.name) && Objects.equals(description, bookDTO.description) && Objects.equals(createdAt, bookDTO.createdAt) && Objects.equals(updatedAt, bookDTO.updatedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, category, publisher, author, name, description, price, quantity, createdAt, updatedAt);
     }
 
     public String toString(){
