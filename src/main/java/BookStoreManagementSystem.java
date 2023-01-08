@@ -6,9 +6,10 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.Date;
 
+import UTILS.ImageUpload;
 public class BookStoreManagementSystem {
     public static void main(String[] args){
-
+        new ImageUpload();
         App app = new App();
         app.loadApp();
 //        BookDTO book = BookDAO.getBookById("001");
