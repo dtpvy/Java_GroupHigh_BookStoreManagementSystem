@@ -12,8 +12,8 @@ import java.util.HashSet;
 public class BookStoreManagementSystem {
     public static void main(String[] args){
 
-        App app = new App();
-        app.loadApp();
+//        App app = new App();
+//        app.loadApp();
 
 //        BookDTO book = BookDAO.getBookById("001");
 //        CategoryDTO cat = CategoryDAO.getCategoryById("001");
@@ -116,5 +116,11 @@ public class BookStoreManagementSystem {
 
 //        BLO.EmployeeBLO.addAdmin("khoil", "25082002", "khoi le dang minh", "123456", "khoi@gmail.com", null, "ho chi minh", cur_date);
 
+        CategoryDTO c = CategoryDAO.getCategoryById(4);
+        EmployeeDTO e = EmployeeDAO.getEmployeeById(1);
+        List<OrderDTO> o = DAO.OrderDAO.getOrderList("id", "asc");
+        RevenueDTO r = new EmployeeRevenueDTO(e);
+        r.addBookByOrderList(o);
+        System.out.print(r.getTotalRevenue());
     }
 }
