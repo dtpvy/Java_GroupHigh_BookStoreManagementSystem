@@ -68,13 +68,17 @@ public class OrderBookDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderBookDTO that = (OrderBookDTO) o;
-        return quantity == that.quantity && order.equals(that.order) && book.equals(that.book);
+        return order.equals(that.order) && book.equals(that.book);
     }
 
 //    @Override
 //    public int hashCode() {
 //        return Objects.hash(id, order, book, quantity);
 //    }
+
+    public double getPrice(){
+        return book.getPrice() * quantity;
+    }
 
 
     public String toString(){

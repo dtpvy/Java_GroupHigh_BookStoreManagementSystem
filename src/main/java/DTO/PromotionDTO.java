@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Table(name = "promotions")
@@ -162,7 +164,18 @@ public class PromotionDTO {
         this.updatedAt = updateAt;
     }
 
-    public PromotionDTO(String code, String description, double discountPercent, int available, boolean customerApplied, boolean anonymousApplied, Timestamp startDate, Timestamp endDate, Timestamp createdAt, Timestamp updatedAt) {
+    @Column(name = "disable")
+    private boolean disable;
+
+    public boolean isDisable() {
+        return disable;
+    }
+
+    public void setDisable(boolean disable) {
+        this.disable = disable;
+    }
+
+    public PromotionDTO(String code, String description, double discountPercent, int available, boolean customerApplied, boolean anonymousApplied, Timestamp startDate, Timestamp endDate, Timestamp createdAt, Timestamp updatedAt, boolean disable) {
         this.code = code;
         this.description = description;
         this.discountPercent = discountPercent;
@@ -173,6 +186,7 @@ public class PromotionDTO {
         this.endDate = endDate;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.disable = disable;
     }
 
     @Override
@@ -186,6 +200,14 @@ public class PromotionDTO {
     @Override
     public int hashCode() {
         return Objects.hash(id, code, description, discountPercent, available, customerApplied, anonymousApplied, bookApplied, startDate, endDate, createdAt, updatedAt);
+    }
+
+    public List<BookDTO> getBookAppliedList(){
+        List<BookDTO> res = new ArrayList<>();
+        for (PromotionBookDTO b : bookApplied){
+            res.add(b.getBook());
+        }
+        return res;
     }
 
     public String toString(){

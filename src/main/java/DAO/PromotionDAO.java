@@ -13,11 +13,12 @@ import java.util.List;
 public class PromotionDAO {
     private static List<PromotionDTO> promotionList;
 
-    public static List<PromotionDTO> getPromotionList(){
+    public static List<PromotionDTO> getPromotionList(String search, String sortType, String sort){
         Session session = SessionGet.getSessionFactory().openSession();
         try {
-            String hql = "FROM PromotionDTO ORDER BY id ASC";
+            String hql = "FROM PromotionDTO Where code LIKE :code ORDER BY " + sortType + " " + sort;
             Query query = session.createQuery(hql);
+            query.setParameter("code", "%" + search + "%");
             promotionList = query.list();
         } catch (HibernateException ex) {
             //Log the exception

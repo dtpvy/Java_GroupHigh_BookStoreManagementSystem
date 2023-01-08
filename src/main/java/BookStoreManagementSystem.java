@@ -12,8 +12,8 @@ import java.util.HashSet;
 public class BookStoreManagementSystem {
     public static void main(String[] args){
 
-//        App app = new App();
-//        app.loadApp();
+        App app = new App();
+        app.loadApp();
 
 //        BookDTO book = BookDAO.getBookById("001");
 //        CategoryDTO cat = CategoryDAO.getCategoryById("001");

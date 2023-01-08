@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import  java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -145,4 +146,20 @@ public class OrderDTO {
         return id == orderDTO.id;
     }
 
+    public double getTotalPrice(){
+        double total = 0;
+        for (OrderBookDTO i : items){
+            BookDTO curBook = i.getBook();
+            double curPrice = i.getPrice();
+            for (OrderPromotionDTO p : promotionApplied){
+                List<BookDTO> bookApplied = p.getPromotion().getBookAppliedList();
+                double discountPercent = p.getPromotion().getDiscountPercent();
+                if (bookApplied.contains(curBook)){
+                    curPrice = curPrice - curPrice * discountPercent / 100;
+                }
+            }
+            total += curPrice;
+        }
+        return total;
+    }
 }

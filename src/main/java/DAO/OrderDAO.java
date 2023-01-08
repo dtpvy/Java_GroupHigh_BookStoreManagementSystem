@@ -14,10 +14,10 @@ import java.util.List;
 public class OrderDAO {
     private static List<OrderDTO> orderList;
 
-    public static List<OrderDTO> getOrderList(){
+    public static List<OrderDTO> getOrderList(String sortType, String sort){
         Session session = SessionGet.getSessionFactory().openSession();
         try {
-            String hql = "FROM OrderDTO ORDER BY id ASC";
+            String hql = "FROM OrderDTO ORDER BY " + sortType + " " + sort;
             Query query = session.createQuery(hql);
             orderList = query.list();
         } catch (HibernateException ex) {
