@@ -279,7 +279,7 @@ public class Employee extends JPanel {
         menuPanel.setBorder(BorderFactory.createTitledBorder("Tìm kiếm và sắp xếp"));
         tablePanel.add(menuPanel);
 
-        jTable.setBounds(30, 40, 800, 450);
+        jTable.setBounds(30, 40, 800, 300);
         jTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
                 int _id = Integer.valueOf(jTable.getValueAt(jTable.getSelectedRow(), 0).toString());
@@ -315,8 +315,8 @@ public class Employee extends JPanel {
         JScrollPane sp = new JScrollPane(jTable);
         tablePanel.add(sp);
         tablePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        tablePanel.setPreferredSize(new Dimension(700, 450));
-        tablePanel.setMaximumSize(new Dimension(700, 450));
+        tablePanel.setPreferredSize(new Dimension(700, 300));
+        tablePanel.setMaximumSize(new Dimension(700, 300));
         add(tablePanel);
     }
 

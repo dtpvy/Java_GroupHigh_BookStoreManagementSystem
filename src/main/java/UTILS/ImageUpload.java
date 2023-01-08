@@ -2,15 +2,11 @@ package UTILS;
 
 import io.imagekit.sdk.ImageKit;
 import io.imagekit.sdk.config.Configuration;
-import io.imagekit.sdk.exceptions.*;
 import io.imagekit.sdk.models.FileCreateRequest;
 import io.imagekit.sdk.models.results.Result;
 import io.imagekit.sdk.utils.Utils;
-import org.json.JSONObject;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ImageUpload {
     public static ImageKit imageKit = null;

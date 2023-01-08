@@ -124,6 +124,7 @@ public class Category extends JPanel {
                 statusTF.setText("Enable");
                 nameTF.setText("");
                 setCatActive(null);
+                jTable.getSelectionModel().clearSelection();
             }
         });
         actionPanel.add(resetButton);

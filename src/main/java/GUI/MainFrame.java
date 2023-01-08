@@ -17,6 +17,8 @@ public class MainFrame extends JFrame {
     List<TabMenu> tabMenus = new ArrayList<>();
     Account accountPanel = new Account();
     Employee employeePanel = new Employee();
+    Promotion promotionPanel = new Promotion();
+    Order orderPanel = new Order();
     Category categoryPanel = new Category();
     void buildUI() {
         setTitle("Hệ thống quản lý cửa hàng sách");
@@ -115,7 +117,7 @@ public class MainFrame extends JFrame {
         promotionButton.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
                 inactiveTabs();
-                onAuthorTab();
+                onPromotionTab();
                 promotionButton.setIsActive(true);
             }
         });
@@ -125,7 +127,7 @@ public class MainFrame extends JFrame {
         orderButton.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
                 inactiveTabs();
-                onAuthorTab();
+                onOrderTab();
                 orderButton.setIsActive(true);
             }
         });
@@ -192,9 +194,34 @@ public class MainFrame extends JFrame {
         bodyPanel.repaint();
     }
     public void onEmployeeTab() {
+        if (!account.getAccessType()) return;
         remove(bodyPanel);
         employeePanel.refresh();
         bodyPanel = employeePanel;
+        bodyPanel.setPreferredSize(new Dimension(800, 800));
+        bodyPanel.setMaximumSize(new Dimension(800, 800)); // set max = pref
+        bodyPanel.setBorder(BorderFactory.createTitledBorder(""));
+
+        add(bodyPanel);
+        revalidate();
+        bodyPanel.repaint();
+    }
+    public void onPromotionTab() {
+        remove(bodyPanel);
+        promotionPanel.refresh();
+        bodyPanel = promotionPanel;
+        bodyPanel.setPreferredSize(new Dimension(800, 800));
+        bodyPanel.setMaximumSize(new Dimension(800, 800)); // set max = pref
+        bodyPanel.setBorder(BorderFactory.createTitledBorder(""));
+
+        add(bodyPanel);
+        revalidate();
+        bodyPanel.repaint();
+    }
+    public void onOrderTab() {
+        remove(bodyPanel);
+        orderPanel.refresh();
+        bodyPanel = orderPanel;
         bodyPanel.setPreferredSize(new Dimension(800, 800));
         bodyPanel.setMaximumSize(new Dimension(800, 800)); // set max = pref
         bodyPanel.setBorder(BorderFactory.createTitledBorder(""));
@@ -215,7 +242,16 @@ public class MainFrame extends JFrame {
         bodyPanel.repaint();
     }
     public void onPublisherTab() {
-        setVisible(true);
+        remove(bodyPanel);
+        bodyPanel = new Publisher();
+        bodyPanel.setPreferredSize(new Dimension(800, 800));
+        bodyPanel.setMaximumSize(new Dimension(800, 800)); // set max = pref
+        bodyPanel.setBorder(BorderFactory.createTitledBorder(""));
+
+        add(bodyPanel);
+        revalidate();
+        bodyPanel.repaint();
+
     }
     public void onCategoryTab() {
         remove(bodyPanel);
