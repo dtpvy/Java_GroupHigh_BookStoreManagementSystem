@@ -1,6 +1,7 @@
 package DTO;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "order_promotion_apply")
@@ -50,6 +51,19 @@ public class OrderPromotionDTO {
         this.promotion = promotion;
         this.order = order;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderPromotionDTO that = (OrderPromotionDTO) o;
+        return promotion.equals(that.promotion) && order.equals(that.order);
+    }
+
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id, promotion, order);
+//    }
 
     public String toString(){
         return "{promotion: " + promotion.toString() + "}";

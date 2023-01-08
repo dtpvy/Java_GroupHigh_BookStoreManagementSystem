@@ -3,6 +3,7 @@ package DTO;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -107,7 +108,14 @@ public class PromotionDTO {
     }
 
     public void removeBookApplied(PromotionBookDTO book){
-        this.bookApplied.remove(book);
+        for (PromotionBookDTO b : bookApplied) {
+            System.out.println(b.equals(book));
+            if (b.equals(book)) {
+                this.bookApplied.remove(b);
+                return;
+            }
+        }
+
     }
 
     @Column(name = "start_date")
@@ -165,6 +173,19 @@ public class PromotionDTO {
         this.endDate = endDate;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PromotionDTO that = (PromotionDTO) o;
+        return id == that.id;// && Double.compare(that.discountPercent, discountPercent) == 0 && available == that.available && customerApplied == that.customerApplied && anonymousApplied == that.anonymousApplied && Objects.equals(code, that.code) && Objects.equals(description, that.description) && Objects.equals(bookApplied, that.bookApplied) && Objects.equals(startDate, that.startDate) && Objects.equals(endDate, that.endDate) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, code, description, discountPercent, available, customerApplied, anonymousApplied, bookApplied, startDate, endDate, createdAt, updatedAt);
     }
 
     public String toString(){

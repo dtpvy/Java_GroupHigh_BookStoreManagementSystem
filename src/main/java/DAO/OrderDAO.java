@@ -75,9 +75,16 @@ public class OrderDAO {
         try {
             transaction = session.beginTransaction();
             Set<OrderBookDTO> items = item.getItems();
-            Set<OrderPromotionDTO> promos = item.getPromotionApplied();
-            for (OrderBookDTO i : items) session.update(i);
-            for (OrderPromotionDTO p : promos) session.update(p);
+            String hql = "DELETE FROM OrderBookDTO O WHERE O.order.id = :order_id";
+            Query q = session.createQuery(hql);
+            q.setParameter("order_id", item.getId());
+            q.executeUpdate();
+
+            hql = "DELETE FROM OrderPromotionDTO O WHERE O.order.id = :order_id";
+            q = session.createQuery(hql);
+            q.setParameter("order_id", item.getId());
+            q.executeUpdate();
+
             session.delete(item);
             transaction.commit();
         } catch (HibernateException ex) {
@@ -96,6 +103,16 @@ public class OrderDAO {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
+            String hql = "DELETE FROM OrderBookDTO O WHERE O.order.id = :order_id";
+            Query q = session.createQuery(hql);
+            q.setParameter("order_id", order.getId());
+            q.executeUpdate();
+
+            hql = "DELETE FROM OrderPromotionDTO O WHERE O.order.id = :order_id";
+            q = session.createQuery(hql);
+            q.setParameter("order_id", order.getId());
+            q.executeUpdate();
+
             Set<OrderBookDTO> items = order.getItems();
             Set<OrderPromotionDTO> promos = order.getPromotionApplied();
             for (OrderBookDTO i : items) session.update(i);

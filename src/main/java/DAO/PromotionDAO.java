@@ -72,8 +72,10 @@ public class PromotionDAO {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            Set<PromotionBookDTO> books = item.getBookApplied();
-            for (PromotionBookDTO b : books) session.delete(b);
+            String hql = "DELETE FROM PromotionBookDTO P WHERE P.promotion.id = :promotion_id";
+            Query q = session.createQuery(hql);
+            q.setParameter("promotion_id", item.getId());
+            q.executeUpdate();
             session.delete(item);
             transaction.commit();
         } catch (HibernateException ex) {

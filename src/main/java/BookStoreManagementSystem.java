@@ -56,10 +56,10 @@ public class BookStoreManagementSystem {
 
         //BLO.EmployeeBLO.addAdmin("khoil", "25082002", "khoi le dang minh", "123456", "khoi@gmail.com", null, "ho chi minh", cur_date);
 
-        BookDTO b1 = BookDAO.getBookById(1);
-        BookDTO b2 = BookDAO.getBookById(2);
+        BookDTO b1 = BookDAO.getBookById(2);
+        BookDTO b2 = BookDAO.getBookById(4);
 //
-//        PromotionDTO p = new PromotionDTO("123", "this is a code", 0.7, 100, true, true, null, cur_date, cur_date, cur_date, cur_date);
+//        PromotionDTO p = new PromotionDTO("123", "this is a code", 0.7, 100, true, true, cur_date, cur_date, cur_date, cur_date);
 //
 //        PromotionBookDTO book1 = new PromotionBookDTO(p, b1);
 //        PromotionBookDTO book2 = new PromotionBookDTO(p, b2);
@@ -71,13 +71,10 @@ public class BookStoreManagementSystem {
 //
 //        DAO.PromotionDAO.addPromotion(p);
 
-//        List<PromotionDTO> p = DAO.PromotionDAO.getPromotionList();
-//        for (PromotionDTO i : p){
-//            for (PromotionBookDTO j : i.getBookApplied()) System.out.println(j);
-//        }
+
 //        CustomerDTO c = DAO.CustomerDAO.getCustomerById(1);
 //        EmployeeDTO e = DAO.EmployeeDAO.getEmployeeById(1);
-//        PromotionDTO p = DAO.PromotionDAO.getPromotionById(2);
+//        PromotionDTO p = DAO.PromotionDAO.getPromotionById(4);
 //
 //        OrderDTO o = new OrderDTO(c, e, "this is a order", cur_date, cur_date);
 //        OrderBookDTO books1 = new OrderBookDTO(o, b1, 2);
@@ -95,10 +92,25 @@ public class BookStoreManagementSystem {
 //
 //        DAO.OrderDAO.addOrder(o);
 
-        PromotionDTO p = DAO.PromotionDAO.getPromotionById(2);
-        BookDTO book3 = DAO.BookDAO.getBookById(3);
-        PromotionBookDTO b = new PromotionBookDTO(p, book3);
-        p.addBookApplied(b);
-        DAO.PromotionDAO.updatePromotion(p);
+//        OrderDTO o = DAO.OrderDAO.getOrderById(12);
+//        OrderBookDTO books1 = new OrderBookDTO(o, b1, 2);
+//        OrderBookDTO books4 = new OrderBookDTO(o, DAO.BookDAO.getBookById(4), 3);
+//        o.addItem(books4);
+//        o.removeItem(books1);
+//        DAO.OrderDAO.updateOrder(o);
+
+
+//        PromotionDTO p = DAO.PromotionDAO.getPromotionById(3);
+//        BookDTO book3 = DAO.BookDAO.getBookById(3);
+//        BookDTO book2 = DAO.BookDAO.getBookById(2);
+//        PromotionBookDTO b = new PromotionBookDTO(p, book3);
+//        PromotionBookDTO b2 = new PromotionBookDTO(p, book2);
+////        p.addBookApplied(b);
+//        p.removeBookApplied(b2);
+//        for (PromotionBookDTO pb : p.getBookApplied()){
+//            System.out.println(pb);
+//        }
+//        DAO.PromotionDAO.updatePromotion(p);
+//        DAO.PromotionDAO.removePromotion(3);
     }
 }

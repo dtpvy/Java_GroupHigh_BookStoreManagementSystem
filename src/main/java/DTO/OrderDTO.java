@@ -3,6 +3,7 @@ package DTO;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -76,7 +77,11 @@ public class OrderDTO {
     }
 
     public void removeItem(OrderBookDTO book){
-        this.items.remove(book);
+        for (OrderBookDTO i : items)
+            if(i.equals(book)) {
+                this.items.remove(i);
+                return;
+            }
     }
 
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
@@ -91,7 +96,11 @@ public class OrderDTO {
     }
 
     public void addPromotionApplied(OrderPromotionDTO promotion){
-        this.promotionApplied.add(promotion);
+        for (OrderPromotionDTO p : promotionApplied)
+            if(p.equals(promotion)) {
+                this.promotionApplied.add(p);
+                return;
+            }
     }
 
     public void removePromotionApplied(OrderPromotionDTO promotion){
@@ -124,9 +133,16 @@ public class OrderDTO {
         this.customer = customer;
         this.employee = employee;
         this.message = message;
-        this.items = items;
-        this.promotionApplied = promotionApplied;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderDTO orderDTO = (OrderDTO) o;
+        return id == orderDTO.id;
+    }
+
 }
