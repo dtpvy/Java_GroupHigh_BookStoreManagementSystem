@@ -1,6 +1,9 @@
 package BLO;
 
+import DAO.AuthorDAO;
 import DAO.BookDAO;
+import DAO.CategoryDAO;
+import DAO.PublisherDAO;
 import DTO.AuthorDTO;
 import DTO.BookDTO;
 import DTO.CategoryDTO;
@@ -26,10 +29,11 @@ public class BookBLO {
         book.setDisable(true);
     }
 
-    public static BookDTO addBook(CategoryDTO category, PublisherDTO publisher, AuthorDTO author, String name, String description, double price, int quantity, Timestamp createdAt, Timestamp updatedAt, boolean disable) {
+    public static BookDTO addBook(int categoryID, int publisherID, int authorID, String name, String description, double price, int quantity, boolean disable) {
         Date date = new Date();
         Timestamp current_date = new Timestamp(date.getTime());
-        BookDTO book = new BookDTO(category, publisher, author, name, description, price, quantity, current_date, current_date, disable);
+
+        BookDTO book = new BookDTO(CategoryDAO.getCategoryById(categoryID), PublisherDAO.getPublisherById(publisherID), AuthorDAO.getAuthorById(authorID), name, description, price, quantity, current_date, current_date, disable);
         BookDAO.addBook(book);
         return book;
     }

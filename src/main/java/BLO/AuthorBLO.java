@@ -23,7 +23,7 @@ public class AuthorBLO {
         author.setDisable(true);
     }
 
-    public static AuthorDTO addAuthor(String name, String description, Timestamp dob, Timestamp createdAt, Timestamp updatedAt, boolean disable) {
+    public static AuthorDTO addAuthor(String name, String description, Timestamp dob, boolean disable) {
         Date date = new Date();
         Timestamp current_date = new Timestamp(date.getTime());
         AuthorDTO author = new AuthorDTO(name, description, dob, current_date, current_date, disable);

@@ -76,6 +76,16 @@ public class AuthorDTO {
         this.updatedAt = updatedAt;
     }
 
+    public AuthorDTO(int id, String name, String description, Timestamp dob, Timestamp createdAt, Timestamp updatedAt, boolean disable){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.dob = dob;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.disable = disable;
+    }
+
     public AuthorDTO(String name, String description, Timestamp dob, Timestamp createdAt, Timestamp updatedAt, boolean disable){
         this.name = name;
         this.description = description;
