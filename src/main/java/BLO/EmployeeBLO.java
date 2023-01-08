@@ -31,13 +31,14 @@ public class EmployeeBLO {
     }
 
     public static EmployeeDTO getAccInfo(int id){
-        EmployeeDTO result = null;
+        EmployeeDTO result;
         result = EmployeeDAO.getEmployeeById(id);
         return result;
     }
 
     public static void updateAccInfo(int id, String fullname, String phone, String email, String image, String address, Timestamp dob){
         EmployeeDTO acc = EmployeeDAO.getEmployeeById(id);
+        assert acc != null;
         acc.setFullname(fullname);
         acc.setPhone(phone);
         acc.setEmail(email);
@@ -68,6 +69,7 @@ public class EmployeeBLO {
     public static String resetPassword(int id){
         String npwd = RandomPasswordGen();
         EmployeeDTO acc = EmployeeDAO.getEmployeeById(id);
+        assert acc != null;
         acc.setPassword(npwd);
         EmployeeDAO.updateEmployee(acc);
         return npwd;
@@ -83,6 +85,7 @@ public class EmployeeBLO {
 
     public static Boolean changePassword(int id, String op, String np){
         EmployeeDTO acc = EmployeeDAO.getEmployeeById(id);
+        assert acc != null;
         if (!op.equals(acc.getPassword())) return false;
         acc.setPassword(np);
         EmployeeDAO.updateEmployee(acc);

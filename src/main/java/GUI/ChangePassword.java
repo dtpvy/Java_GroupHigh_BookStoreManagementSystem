@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ChangePassword {
-    private JDialog dialog;
+    private final JDialog dialog;
 
     public ChangePassword(int id) {
         JFrame frame = new JFrame();

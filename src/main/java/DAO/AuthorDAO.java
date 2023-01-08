@@ -35,6 +35,7 @@ public class AuthorDAO {
             //System.out.println("New item id: " + item.getId());
         } catch (HibernateException ex) {
             //Log the exception
+            assert transaction != null;
             transaction.rollback();
             System.err.println(ex);
         } finally {
@@ -70,6 +71,7 @@ public class AuthorDAO {
             transaction.commit();
         } catch (HibernateException ex) {
             //Log the exception
+            assert transaction != null;
             transaction.rollback();
             System.err.println(ex);
             return false;
@@ -88,6 +90,7 @@ public class AuthorDAO {
             transaction.commit();
         } catch (HibernateException ex) {
             //Log the exception
+            assert transaction != null;
             transaction.rollback();
             System.err.println(ex);
             return false;

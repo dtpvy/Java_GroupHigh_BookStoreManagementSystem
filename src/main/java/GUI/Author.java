@@ -86,9 +86,9 @@ public class Author extends JPanel {
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.X_AXIS));
         JTextField searchInput = new JTextField(20);
         JButton searchSubmit = new JButton("Tìm kiếm");
-        String sortType[] = { "Tên", "Ngày than gia", "ID" };
+        String[] sortType = { "Tên", "Ngày than gia", "ID" };
         JComboBox cb1 = new JComboBox(sortType);
-        String sort[] = { "Tăng dần", "Giảm dần" };
+        String[] sort = { "Tăng dần", "Giảm dần" };
         JComboBox cb2 = new JComboBox(sort);
         menuPanel.add(searchInput);
         menuPanel.add(searchSubmit);
@@ -106,7 +106,7 @@ public class Author extends JPanel {
         JTable jTable = new JTable(data, columnNames) {
             public boolean isCellEditable(int row, int column) {
                 return false;
-            };
+            }
         };
         jTable.setBounds(30, 40, 800, 450);
         jTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){

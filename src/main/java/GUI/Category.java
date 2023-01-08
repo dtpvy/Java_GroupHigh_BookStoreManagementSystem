@@ -36,7 +36,7 @@ public class Category extends JPanel {
         JTable jTable = new JTable(new DefaultTableModel(getTableData(), columnNames)) {
             public boolean isCellEditable(int row, int column) {
                 return false;
-            };
+            }
         };
 
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.X_AXIS));
@@ -150,7 +150,7 @@ public class Category extends JPanel {
                 dtm.setDataVector(getTableData(), columnNames);
             }
         });
-        String sortTypeArr[] = { "ID", "Tên" };
+        String[] sortTypeArr = { "ID", "Tên" };
         JComboBox cb1 = new JComboBox(sortTypeArr);
         cb1.addItemListener(new ItemListener()
         {
@@ -195,8 +195,8 @@ public class Category extends JPanel {
                 idTF.setEnabled(false);
                 statusTF.setText(status);
                 nameTF.setText(name);
-                Timestamp createdAt = null;
-                Timestamp updatedAt = null;
+                Timestamp createdAt;
+                Timestamp updatedAt;
                 try {
                     String ca = jTable.getValueAt(jTable.getSelectedRow(), 3).toString();
                     String ua = jTable.getValueAt(jTable.getSelectedRow(), 4).toString();

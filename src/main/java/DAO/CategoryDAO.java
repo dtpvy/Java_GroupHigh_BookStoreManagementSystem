@@ -38,6 +38,7 @@ public class CategoryDAO {
             //System.out.println("New item id: " + item.getId());
         } catch (HibernateException ex) {
             //Log the exception
+            assert transaction != null;
             transaction.rollback();
             System.err.println(ex);
         } finally {
@@ -73,6 +74,7 @@ public class CategoryDAO {
             transaction.commit();
         } catch (HibernateException ex) {
             //Log the exception
+            assert transaction != null;
             transaction.rollback();
             System.err.println(ex);
             return false;
@@ -109,6 +111,7 @@ public class CategoryDAO {
             transaction.commit();
         } catch (HibernateException ex) {
             //Log the exception
+            assert transaction != null;
             transaction.rollback();
             System.err.println(ex);
             return false;

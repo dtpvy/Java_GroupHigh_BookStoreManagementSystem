@@ -15,7 +15,7 @@ public class LoginFrame extends JFrame {
     EmployeeDTO account;
     private String username;
     private String password;
-    private JLabel status = new JLabel("", JLabel.RIGHT);
+    private final JLabel status = new JLabel("", JLabel.RIGHT);
     public LoginFrame() {
         setTitle("Đăng nhập");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

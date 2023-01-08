@@ -35,6 +35,7 @@ public class CustomerDAO {
             //System.out.println("New item id: " + item.getId());
         } catch (HibernateException ex) {
             //Log the exception
+            assert transaction != null;
             transaction.rollback();
             System.err.println(ex);
         } finally {
@@ -43,7 +44,7 @@ public class CustomerDAO {
     }
 
     public static CustomerDTO getCustomerById(int id){
-        CustomerDTO result = null;
+        CustomerDTO result;
         Session session = SessionGet.getSessionFactory().openSession();
         try {
             result = (CustomerDTO) session.get(CustomerDTO.class, id);
@@ -70,6 +71,7 @@ public class CustomerDAO {
             transaction.commit();
         } catch (HibernateException ex) {
             //Log the exception
+            assert transaction != null;
             transaction.rollback();
             System.err.println(ex);
             return false;

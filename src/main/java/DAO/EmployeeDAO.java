@@ -36,6 +36,7 @@ public class EmployeeDAO {
             //System.out.println("New item id: " + item.getId());
         } catch (HibernateException ex) {
             //Log the exception
+            assert transaction != null;
             transaction.rollback();
             System.err.println(ex);
         } finally {
@@ -44,7 +45,7 @@ public class EmployeeDAO {
     }
 
     public static EmployeeDTO getEmployeeById(int id){
-        EmployeeDTO result = null;
+        EmployeeDTO result;
         Session session = SessionGet.getSessionFactory().openSession();
         try {
             result = (EmployeeDTO) session.get(EmployeeDTO.class, id);
@@ -88,6 +89,7 @@ public class EmployeeDAO {
             transaction.commit();
         } catch (HibernateException ex) {
             //Log the exception
+            assert transaction != null;
             transaction.rollback();
             System.err.println(ex);
             return false;
@@ -106,6 +108,7 @@ public class EmployeeDAO {
             transaction.commit();
         } catch (HibernateException ex) {
             //Log the exception
+            assert transaction != null;
             transaction.rollback();
             System.err.println(ex);
             return false;

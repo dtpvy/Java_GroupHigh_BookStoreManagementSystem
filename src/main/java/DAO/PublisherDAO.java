@@ -35,6 +35,7 @@ public class PublisherDAO {
             //System.out.println("New item id: " + item.getId());
         } catch (HibernateException ex) {
             //Log the exception
+            assert transaction != null;
             transaction.rollback();
             System.err.println(ex);
         } finally {
@@ -43,7 +44,7 @@ public class PublisherDAO {
     }
 
     public static PublisherDTO getPublisherById(int id){
-        PublisherDTO result = null;
+        PublisherDTO result;
         Session session = SessionGet.getSessionFactory().openSession();
         try {
             result = (PublisherDTO) session.get(PublisherDTO.class, id);
@@ -70,6 +71,7 @@ public class PublisherDAO {
             transaction.commit();
         } catch (HibernateException ex) {
             //Log the exception
+            assert transaction != null;
             transaction.rollback();
             System.err.println(ex);
             return false;
@@ -88,6 +90,7 @@ public class PublisherDAO {
             transaction.commit();
         } catch (HibernateException ex) {
             //Log the exception
+            assert transaction != null;
             transaction.rollback();
             System.err.println(ex);
             return false;
