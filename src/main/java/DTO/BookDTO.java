@@ -120,7 +120,17 @@ public class BookDTO {
         this.updatedAt = updatedAt;
     }
 
-    public BookDTO(CategoryDTO category, PublisherDTO publisher, AuthorDTO author, String name, String description, double price, int quantity, Timestamp createdAt, Timestamp updatedAt) {
+    @Column (name = "disable")
+    private boolean disable;
+    public boolean isDisable() {
+        return disable;
+    }
+
+    public void setDisable(boolean disable) {
+        this.disable = disable;
+    }
+
+    public BookDTO(CategoryDTO category, PublisherDTO publisher, AuthorDTO author, String name, String description, double price, int quantity, Timestamp createdAt, Timestamp updatedAt, boolean disable) {
         this.category = category;
         this.publisher = publisher;
         this.author = author;
@@ -130,6 +140,7 @@ public class BookDTO {
         this.quantity = quantity;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.disable = disable;
     }
 
     @Override
