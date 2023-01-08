@@ -143,6 +143,20 @@ public class BookDTO {
         this.disable = disable;
     }
 
+    public BookDTO(int id, CategoryDTO category, PublisherDTO publisher, AuthorDTO author, String name, String description, double price, int quantity, Timestamp createdAt, Timestamp updatedAt, boolean disable) {
+        this.id = id;
+        this.category = category;
+        this.publisher = publisher;
+        this.author = author;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.disable = disable;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
