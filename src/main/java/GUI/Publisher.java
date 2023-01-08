@@ -1,10 +1,10 @@
 package GUI;
 
 import BLO.CategoryBLO;
-import DAO.CategoryDAO;
+import BLO.PublisherBLO;
 import DTO.AuthorDTO;
 import DTO.CategoryDTO;
-import DTO.EmployeeDTO;
+import DTO.PublisherDTO;
 import UTILS.TimeUtil;
 
 import javax.swing.*;
@@ -23,14 +23,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class Category extends JPanel {
-    List<CategoryDTO> catList;
-    CategoryDTO catActive;
+public class Publisher extends JPanel {
+    List<PublisherDTO> publisherList;
+    PublisherDTO publisherActive;
     String search = "";
     String sortType = "id";
     String sort = "ASC";
-    String[] columnNames = { "ID", "Tên thể loại", "Trạng thái", "Ngày tạo",
-            "Cập nhật lần cuối" };
+    String[] columnNames = { "ID", "Tên", "Mô tả", "Ngày tạo", "Cập nhật lần cuối", "Trạng thái" };
+
     void buildUI() {
         JPanel controlPanel = new JPanel();
         JTable jTable = new JTable(new DefaultTableModel(getTableData(), columnNames)) {
@@ -43,88 +43,98 @@ public class Category extends JPanel {
         controlPanel.setBorder(new EmptyBorder(20, 0, 20, 0));
 
         JPanel formPanel = new JPanel();
-        JTextField nameTF = new JTextField(20);
-        JTextField idTF = new JTextField(20);
-        idTF.setEnabled(false);
-        JTextField statusTF = new JTextField(20);
+        JTextField id = new JTextField(20);
+        JTextField name = new JTextField(20);
+        JTextField description = new JTextField(20);
+        id.setEnabled(false);
+        JTextField status = new JTextField(20);
         formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
+
         JLabel labelId = new JLabel("ID:");
         JPanel idPanel = new JPanel();
         idPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         idPanel.add(labelId);
-        idPanel.add(idTF);
-        JLabel labelName = new JLabel("Tên thể loại:");
+        idPanel.add(id);
+        JLabel labelName = new JLabel("Họ và tên:");
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         namePanel.add(labelName);
-        namePanel.add(nameTF);
+        namePanel.add(name);
+        JLabel labelDescription = new JLabel("Giới thiệu:");
+        JPanel DescriptionPanel = new JPanel();
+        DescriptionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        DescriptionPanel.add(labelDescription);
+        DescriptionPanel.add(description);
         JLabel labelStatus = new JLabel("Trạng thái:");
         JPanel statusPanel = new JPanel();
         statusPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         statusPanel.add(labelStatus);
-        statusPanel.add(statusTF);
-        statusTF.setEnabled(false);
-        statusTF.setText("Enable");
+        statusPanel.add(status);
+        status.setEnabled(false);
+        status.setText("Enable");
 
-        formPanel.add(idPanel);
         formPanel.add(namePanel);
+        formPanel.add(DescriptionPanel);
         formPanel.add(statusPanel);
 
         controlPanel.add(formPanel);
 
         JPanel actionPanel = new JPanel();
         actionPanel.setLayout(new GridLayout(5,1));
+
         JButton disableButton = new JButton("Disable");
         disableButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (catActive == null || !catActive.getDisable()) return;
-                CategoryBLO.disableCategory(catActive);
-                statusTF.setText("Disable");
+                if (publisherActive == null || !publisherActive.isDisable()) return;
+                PublisherBLO.disablePublisher(publisherActive);
+                status.setText("Disable");
             }
         });
         JButton enableButton = new JButton("Enable");
         enableButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (catActive == null || catActive.getDisable()) return;
-                CategoryBLO.enableCategory(catActive);
-                statusTF.setText("Enable");
+                if (publisherActive == null || !publisherActive.isDisable()) return;
+                PublisherBLO.enablePublisher(publisherActive);
+                status.setText("Enable");
             }
         });
         JButton addButton = new JButton("Add");
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String name = nameTF.getText();
-                boolean disable = statusTF.getText().equals("Enable");
-                CategoryDTO newCat = CategoryBLO.addCategory(name, disable);
+                String nameAdd = name.getText();
+                String desAdd = description.getText();
+                boolean disable = status.getText().equals("Enable");
+                PublisherDTO newPub = PublisherBLO.addPublisher(nameAdd, desAdd, disable);
                 DefaultTableModel model = (DefaultTableModel) jTable.getModel();
-                model.addRow(new String[]{String.valueOf(newCat.getId()), newCat.getName(), newCat.getDisable() ? "Enable" : "Disable", TimeUtil.formatDate(newCat.getCreatedAt()), TimeUtil.formatDate(newCat.getUpdatedAt())});
+                model.addRow(new String[]{String.valueOf(newPub.getId()), newPub.getName(), newPub.getDescription(), TimeUtil.formatDate(newPub.getCreatedAt()), TimeUtil.formatDate(newPub.getUpdatedAt()), newPub.isDisable() ? "Enable" : "Disable"});
             }
         });
         JButton updateButton = new JButton("Update");
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                catActive.setName(nameTF.getText());
-                CategoryBLO.updateCategoryInfo(catActive);
-                jTable.getModel().setValueAt(catActive.getId(), jTable.getSelectedRow(), 0);
-                jTable.getModel().setValueAt(catActive.getName(), jTable.getSelectedRow(), 1);
-                jTable.getModel().setValueAt(catActive.getDisable() ? "Enable" : "Disable", jTable.getSelectedRow(), 2);
-                jTable.getModel().setValueAt(TimeUtil.formatDate(catActive.getCreatedAt()), jTable.getSelectedRow(), 3);
-                jTable.getModel().setValueAt(TimeUtil.formatDate(catActive.getUpdatedAt()), jTable.getSelectedRow(), 4);
+                publisherActive.setName(name.getText());
+                PublisherBLO.updatePublisherInfo(publisherActive);
+                jTable.getModel().setValueAt(publisherActive.getId(), jTable.getSelectedRow(), 0);
+                jTable.getModel().setValueAt(publisherActive.getName(), jTable.getSelectedRow(), 1);
+                jTable.getModel().setValueAt(publisherActive.getDescription(), jTable.getSelectedRow(), 2);
+                jTable.getModel().setValueAt(TimeUtil.formatDate(publisherActive.getCreatedAt()), jTable.getSelectedRow(), 3);
+                jTable.getModel().setValueAt(TimeUtil.formatDate(publisherActive.getUpdatedAt()), jTable.getSelectedRow(), 4);
+                jTable.getModel().setValueAt(publisherActive.isDisable() ? "Enable" : "Disable", jTable.getSelectedRow(), 5);
+
             }
         });
         JButton resetButton = new JButton("Reset");
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                idTF.setText("");
-                statusTF.setText("Enable");
-                nameTF.setText("");
-                setCatActive(null);
-                jTable.getSelectionModel().clearSelection();
+                id.setText("");
+                status.setText("Enable");
+                name.setText("");
+                setPublisherActive(null);
             }
         });
         actionPanel.add(resetButton);
@@ -142,11 +152,12 @@ public class Category extends JPanel {
         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.X_AXIS));
         JTextField searchInput = new JTextField(20);
         JButton searchSubmit = new JButton("Tìm kiếm");
+
         searchSubmit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 search = searchInput.getText();
-                setCatList();
+                setPublisherList();
                 DefaultTableModel dtm = (DefaultTableModel) jTable.getModel();
                 dtm.setDataVector(getTableData(), columnNames);
             }
@@ -159,11 +170,12 @@ public class Category extends JPanel {
             public void itemStateChanged(ItemEvent e)
             {
                 sortType = ((String) cb1.getSelectedItem()).equals("Tên") ? "name" : "id";
-                setCatList();
+                setPublisherList();
                 DefaultTableModel dtm = (DefaultTableModel) jTable.getModel();
                 dtm.setDataVector(getTableData(), columnNames);
             }
         });
+
         String sortArr[] = { "Tăng dần", "Giảm dần" };
         JComboBox cb2 = new JComboBox(sortArr);
         cb2.addItemListener(new ItemListener()
@@ -173,7 +185,7 @@ public class Category extends JPanel {
             {
                 sort = ((String) cb2.getSelectedItem()).equals("Tăng dần") ? "ASC" : "DESC";
                 System.out.println(sort);
-                setCatList();
+                setPublisherList();
                 DefaultTableModel dtm = (DefaultTableModel) jTable.getModel();
                 dtm.setDataVector(getTableData(), columnNames);
             }
@@ -189,13 +201,16 @@ public class Category extends JPanel {
         jTable.setBounds(30, 40, 800, 450);
         jTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
-                int id = Integer.valueOf(jTable.getValueAt(jTable.getSelectedRow(), 0).toString());
-                String name = jTable.getValueAt(jTable.getSelectedRow(), 1).toString();
-                String status = jTable.getValueAt(jTable.getSelectedRow(), 2).toString();
-                idTF.setText(String.valueOf(id));
-                idTF.setEnabled(false);
-                statusTF.setText(status);
-                nameTF.setText(name);
+                int idGet = Integer.valueOf(jTable.getValueAt(jTable.getSelectedRow(), 0).toString());
+                String nameGet = jTable.getValueAt(jTable.getSelectedRow(), 1).toString();
+                String desGet = jTable.getValueAt(jTable.getSelectedRow(), 2).toString();
+                String statusGet = jTable.getValueAt(jTable.getSelectedRow(), 5).toString();
+
+                id.setText(String.valueOf(idGet));
+                id.setEnabled(false);
+                description.setText(desGet);
+                name.setText(nameGet);
+                status.setText(statusGet);
                 Timestamp createdAt = null;
                 Timestamp updatedAt = null;
                 try {
@@ -206,7 +221,7 @@ public class Category extends JPanel {
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }
-                setCatActive(new CategoryDTO(id, name, createdAt, updatedAt, status.equals("Enable") ? true : false));
+                setPublisherActive(new PublisherDTO(nameGet, desGet, createdAt, updatedAt, statusGet.equals("Enable") ? true : false));
             }
         });
         JScrollPane sp = new JScrollPane(jTable);
@@ -217,25 +232,25 @@ public class Category extends JPanel {
         add(tablePanel);
     }
 
-    public Category() {
+    public Publisher() {
         refresh();
     }
 
     public void refresh() {
-        setCatList();
+        setPublisherList();
         removeAll();
         buildUI();
     }
-    public void setCatActive(CategoryDTO catActive) {
-        this.catActive = catActive;
+    public void setPublisherActive(PublisherDTO publisherActive) {
+        this.publisherActive = publisherActive;
     }
-    public void setCatList() {
-        this.catList = CategoryBLO.getCategoryList(search, sortType, sort);
+    public void setPublisherList() {
+        this.publisherList = PublisherBLO.getPublisherList(search, sortType, sort);
     }
     public String[][] getTableData() {
-        String[][] data = new String[catList.size()][5];
-        for (int i = 0; i < catList.size(); i++) {
-            data[i] = new String[]{String.valueOf(catList.get(i).getId()), catList.get(i).getName(), catList.get(i).getDisable() ? "Enable" : "Disable", TimeUtil.formatDate(catList.get(i).getCreatedAt()), TimeUtil.formatDate(catList.get(i).getUpdatedAt())};
+        String[][] data = new String[publisherList.size()][6];
+        for (int i = 0; i < publisherList.size(); i++) {
+            data[i] = new String[]{String.valueOf(publisherList.get(i).getId()), publisherList.get(i).getName(), publisherList.get(i).getDescription(), TimeUtil.formatDate(publisherList.get(i).getCreatedAt()), TimeUtil.formatDate(publisherList.get(i).getUpdatedAt()), publisherList.get(i).isDisable() ? "Enable" : "Disable"};
         }
         return data;
     }

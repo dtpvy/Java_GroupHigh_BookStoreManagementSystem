@@ -2,6 +2,7 @@ package DTO;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity 
 @Table (name = "customers")
@@ -71,6 +72,14 @@ public class CustomerDTO {
         this.phone = phone;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomerDTO that = (CustomerDTO) o;
+        return id == that.id;
     }
 
     public String toString(){

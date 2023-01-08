@@ -2,6 +2,7 @@ package DTO;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "BOOKS")
@@ -119,7 +120,17 @@ public class BookDTO {
         this.updatedAt = updatedAt;
     }
 
-    public BookDTO(CategoryDTO category, PublisherDTO publisher, AuthorDTO author, String name, String description, double price, int quantity, Timestamp createdAt, Timestamp updatedAt) {
+    @Column (name = "disable")
+    private boolean disable;
+    public boolean isDisable() {
+        return disable;
+    }
+
+    public void setDisable(boolean disable) {
+        this.disable = disable;
+    }
+
+    public BookDTO(CategoryDTO category, PublisherDTO publisher, AuthorDTO author, String name, String description, double price, int quantity, Timestamp createdAt, Timestamp updatedAt, boolean disable) {
         this.category = category;
         this.publisher = publisher;
         this.author = author;
@@ -129,6 +140,34 @@ public class BookDTO {
         this.quantity = quantity;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.disable = disable;
+    }
+
+    public BookDTO(int id, CategoryDTO category, PublisherDTO publisher, AuthorDTO author, String name, String description, double price, int quantity, Timestamp createdAt, Timestamp updatedAt, boolean disable) {
+        this.id = id;
+        this.category = category;
+        this.publisher = publisher;
+        this.author = author;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.disable = disable;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BookDTO bookDTO = (BookDTO) o;
+        return id == bookDTO.id;// && Double.compare(bookDTO.price, price) == 0 && quantity == bookDTO.quantity && Objects.equals(category, bookDTO.category) && Objects.equals(publisher, bookDTO.publisher) && Objects.equals(author, bookDTO.author) && Objects.equals(name, bookDTO.name) && Objects.equals(description, bookDTO.description) && Objects.equals(createdAt, bookDTO.createdAt) && Objects.equals(updatedAt, bookDTO.updatedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, category, publisher, author, name, description, price, quantity, createdAt, updatedAt);
     }
 
     public String toString(){
