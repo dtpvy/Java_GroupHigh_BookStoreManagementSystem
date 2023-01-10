@@ -1,5 +1,6 @@
 package DAO;
 
+import DTO.CategoryDTO;
 import DTO.EmployeeDTO;
 import DTO.EmployeeDTO;
 
@@ -113,5 +114,22 @@ public class EmployeeDAO {
             session.close();
         }
         return true;
+    }
+
+    public static List<EmployeeDTO> getEmployeeList(String search, String sortType, String sort){
+        Session session = SessionGet.getSessionFactory().openSession();
+        try {
+            String hql = "FROM EmployeeDTO WHERE full_name LIKE :search ORDER BY " + sortType + " " + sort;
+            Query query = session.createQuery(hql);
+            query.setParameter("search", "%" + search + "%");
+            System.out.println(query.list());
+            employeeList = query.list();
+        } catch (HibernateException ex) {
+            //Log the exception
+            System.err.println(ex);
+        } finally {
+            session.close();
+        }
+        return employeeList;
     }
 }

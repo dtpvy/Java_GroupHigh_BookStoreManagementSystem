@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeRevenueDTO extends BookRevenueDTO{
+public class EmployeeRevenueDTO extends TotalRevenueDTO{
     EmployeeDTO employee;
 
     public EmployeeRevenueDTO(EmployeeDTO employee){
