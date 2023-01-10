@@ -21,6 +21,8 @@ public class MainFrame extends JFrame {
     Order orderPanel = new Order();
     Category categoryPanel = new Category();
     Book bookPanel = new Book();
+
+    Author authorPanel = new Author();
     void buildUI() {
         setTitle("Hệ thống quản lý cửa hàng sách");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
