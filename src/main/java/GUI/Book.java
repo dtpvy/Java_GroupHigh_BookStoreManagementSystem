@@ -1,6 +1,7 @@
 package GUI;
 
 import BLO.AuthorBLO;
+import BLO.CategoryBLO;
 import DAO.AuthorDAO;
 import DAO.CategoryDAO;
 import DAO.PublisherDAO;
@@ -45,80 +46,80 @@ public class Book extends JPanel {
             };
         };
 
+
         controlPanel.setLayout(new BoxLayout(controlPanel, BoxLayout.X_AXIS));
         controlPanel.setBorder(new EmptyBorder(20, 0, 20, 0));
 
 
         JPanel formPanel = new JPanel();
-        JTextField id = new JTextField(20);
-        JTextField category = new JTextField(20);
-        JTextField publisher = new JTextField(20);
-        JTextField author = new JTextField(20);
-        JTextField name = new JTextField(20);
-        JTextField description = new JTextField(100);
-        JTextField price = new JTextField(20);
-        JTextField quantity = new JTextField(20);
-        JTextField status = new JTextField(20);
-
-        id.setEnabled(false);
+        JTextField idIF = new JTextField(20);
+        JTextField categoryIF = new JTextField(20);
+        JTextField publisherIF = new JTextField(20);
+        JTextField authorIF = new JTextField(20);
+        JTextField nameIF = new JTextField(20);
+        JTextField descriptionIF = new JTextField(20);
+        JTextField priceIF = new JTextField(20);
+        JTextField quantityIF = new JTextField(20);
+        JTextField statusIF = new JTextField(20);
 
         formPanel.setLayout(new BoxLayout(formPanel, BoxLayout.Y_AXIS));
+        formPanel.setEnabled(false);
 
         JLabel labelId = new JLabel("ID:");
         JPanel idPanel = new JPanel();
         idPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         idPanel.add(labelId);
-        idPanel.add(id);
+        idPanel.add(idIF);
 
         JLabel labelCategory = new JLabel("Thể loại: ");
         JPanel categoryPanel = new JPanel();
         categoryPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         categoryPanel.add(labelCategory);
-        categoryPanel.add(category);
+        categoryPanel.add(categoryIF);
 
         JLabel labelPublisher = new JLabel("Nhà xuất bản: ");
         JPanel publisherPanel = new JPanel();
         publisherPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         publisherPanel.add(labelPublisher);
-        publisherPanel.add(publisher);
+        publisherPanel.add(publisherIF);
 
         JLabel labelAuthor = new JLabel("Tác giả: ");
         JPanel authorPanel = new JPanel();
         authorPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         authorPanel.add(labelAuthor);
-        authorPanel.add(author);
+        authorPanel.add(authorIF);
 
         JLabel labelName = new JLabel("Tên: ");
         JPanel namePanel = new JPanel();
         namePanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         namePanel.add(labelName);
-        namePanel.add(category);
+        namePanel.add(nameIF);
 
         JLabel labelDescription = new JLabel("Giới thiệu: ");
         JPanel descriptionPanel = new JPanel();
         descriptionPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         descriptionPanel.add(labelDescription);
-        descriptionPanel.add(description);
+        descriptionPanel.add(descriptionIF);
 
         JLabel labelPrice = new JLabel("Giá tiền: ");
         JPanel pricePanel = new JPanel();
         pricePanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         pricePanel.add(labelPrice);
-        pricePanel.add(price);
+        pricePanel.add(priceIF);
 
         JLabel labelQuantity = new JLabel("Số lượng: ");
         JPanel quantityPanel = new JPanel();
         quantityPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         quantityPanel.add(labelQuantity);
-        quantityPanel.add(quantity);
+        quantityPanel.add(quantityIF);
 
         JLabel labelStatus = new JLabel("Trạng thái:");
         JPanel statusPanel = new JPanel();
         statusPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         statusPanel.add(labelStatus);
-        statusPanel.add(status);
-        status.setEnabled(false);
-        status.setText("Enable");
+        statusPanel.add(statusIF);
+        statusIF.setEnabled(false);
+        statusIF.setText("Enable");
 
         formPanel.add(idPanel);
         formPanel.add(categoryPanel);
@@ -132,7 +133,6 @@ public class Book extends JPanel {
 
         JPanel actionPanel = new JPanel();
         actionPanel.setLayout(new GridLayout(5,1));
-
 
         ImageIcon icon = new ImageIcon("src/main/resources/images/loginbg.png");
         Image scaleImage = icon.getImage().getScaledInstance(150, 150,Image.SCALE_DEFAULT);
@@ -152,35 +152,47 @@ public class Book extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 if (BookActive == null || !BookActive.isDisable()) return;
                 BookBLO.disableBook(BookActive);
-                status.setText("Disable");
+                statusIF.setText("Disable");
             }
         });
+
         JButton enableButton = new JButton("Enable");
         enableButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (BookActive == null || !BookActive.isDisable()) return;
                 BookBLO.enableBook(BookActive);
-                status.setText("Enable");
+                statusIF.setText("Enable");
             }
         });
         JButton addButton = new JButton("Add");
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String name = nameIF.getText();
+                String description = descriptionIF.getText();
+                String author = authorIF.getText();
+                String publisher = publisherIF.getText();
+                String category = categoryIF.getText();
+                int price = Integer.parseInt(priceIF.getText());
+                int quantity = Integer.parseInt(quantityIF.getText());
+                boolean status = statusIF.getText().equals("Enable");
+                BookDTO newBook = BookBLO.addBook(Integer.parseInt(category), Integer.parseInt(publisher), Integer.parseInt(author), name, description, price, quantity, status);
 
-                int catAdd = Integer.parseInt(category.getText());
-                int pubAdd = Integer.parseInt(publisher.getText());
-                int auAdd = Integer.parseInt(author.getText());
-                String nameAdd = name.getText();
-                String desAdd = description.getText();
-                double priceAdd = Double.parseDouble(price.getText());
-                int quantityAdd = Integer.parseInt(quantity.getText());
-                boolean disable = status.getText().equals("Enable");
 
-                BookDTO newBook = BookBLO.addBook(catAdd, pubAdd, auAdd, nameAdd, desAdd, priceAdd, quantityAdd, disable);
-                DefaultTableModel model = (DefaultTableModel) jTable.getModel();
-                model.addRow(new String[]{String.valueOf(newBook.getCategory()), String.valueOf(newBook.getPublisher()), String.valueOf(newBook.getAuthor()), newBook.getName(), newBook.getDescription(), String.valueOf(newBook.getPrice()), String.valueOf(newBook.getQuantity()), TimeUtil.formatDate(newBook.getCreatedAt()), TimeUtil.formatDate(newBook.getUpdatedAt()), newBook.isDisable() ? "Enable" : "Disable"});
+//                int catAdd = Integer.parseInt(categoryIF.getText());
+//                int pubAdd = Integer.parseInt(publisherIF.getText());
+//                int auAdd = Integer.parseInt(authorIF.getText());
+//                String nameAdd = nameIF.getText();
+//                String desAdd = descriptionIF.getText();
+//                double priceAdd = Double.parseDouble(priceIF.getText());
+//                int quantityAdd = Integer.parseInt(quantityIF.getText());
+//                boolean disable = statusIF.getText().equals("Enable");
+//
+//                BookDTO newBook = BookBLO.addBook(catAdd, pubAdd, auAdd, nameAdd, desAdd, priceAdd, quantityAdd, disable);
+//                DefaultTableModel model = (DefaultTableModel) jTable.getModel();
+//                model.addRow(new String[]{String.valueOf(newBook.getCategory()), String.valueOf(newBook.getPublisher()), String.valueOf(newBook.getAuthor()), newBook.getName(), newBook.getDescription(), String.valueOf(newBook.getPrice()), String.valueOf(newBook.getQuantity()), TimeUtil.formatDate(newBook.getCreatedAt()), TimeUtil.formatDate(newBook.getUpdatedAt()), newBook.isDisable() ? "Enable" : "Disable"});
+
             }
         });
 
@@ -188,18 +200,22 @@ public class Book extends JPanel {
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                BookActive.setName(name.getText());
+                BookActive.setName(nameIF.getText());
+                BookActive.setDescription(descriptionIF.getText());
+                BookActive.setPrice(Integer.parseInt(priceIF.getText()));
+                BookActive.setQuantity(Integer.parseInt(quantityIF.getText()));
+
                 BookBLO.updateBookInfo(BookActive);
-                jTable.getModel().setValueAt(BookActive.getCategory(), jTable.getSelectedRow(), 0);
-                jTable.getModel().setValueAt(BookActive.getPublisher(), jTable.getSelectedRow(), 1);
-                jTable.getModel().setValueAt(BookActive.getAuthor(), jTable.getSelectedRow(), 2);
-                jTable.getModel().setValueAt(BookActive.getName(), jTable.getSelectedRow(), 3);
-                jTable.getModel().setValueAt(BookActive.getDescription(), jTable.getSelectedRow(), 4);
-                jTable.getModel().setValueAt(BookActive.getPrice(), jTable.getSelectedRow(), 5);
-                jTable.getModel().setValueAt(BookActive.getQuantity(), jTable.getSelectedRow(), 6);
-                jTable.getModel().setValueAt(TimeUtil.formatDate(BookActive.getCreatedAt()), jTable.getSelectedRow(), 7);
-                jTable.getModel().setValueAt(TimeUtil.formatDate(BookActive.getUpdatedAt()), jTable.getSelectedRow(), 8);
-                jTable.getModel().setValueAt(BookActive.isDisable() ? "Enable" : "Disable", jTable.getSelectedRow(), 9);
+                jTable.getModel().setValueAt(BookActive.getCategory(), jTable.getSelectedRow(), 1);
+                jTable.getModel().setValueAt(BookActive.getPublisher(), jTable.getSelectedRow(), 2);
+                jTable.getModel().setValueAt(BookActive.getAuthor(), jTable.getSelectedRow(), 3);
+                jTable.getModel().setValueAt(BookActive.getName(), jTable.getSelectedRow(), 4);
+                jTable.getModel().setValueAt(BookActive.getDescription(), jTable.getSelectedRow(), 5);
+                jTable.getModel().setValueAt(BookActive.getPrice(), jTable.getSelectedRow(), 6);
+                jTable.getModel().setValueAt(BookActive.getQuantity(), jTable.getSelectedRow(), 7);
+                jTable.getModel().setValueAt(TimeUtil.formatDate(BookActive.getCreatedAt()), jTable.getSelectedRow(), 8);
+                jTable.getModel().setValueAt(TimeUtil.formatDate(BookActive.getUpdatedAt()), jTable.getSelectedRow(), 9);
+                jTable.getModel().setValueAt(BookActive.isDisable() ? "Enable" : "Disable", jTable.getSelectedRow(), 10);
 
             }
         });
@@ -208,9 +224,9 @@ public class Book extends JPanel {
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                id.setText("");
-                status.setText("Enable");
-                name.setText("");
+                idIF.setText("");
+                statusIF.setText("Enable");
+                nameIF.setText("");
                 setBookActive(null);
             }
         });
@@ -281,10 +297,48 @@ public class Book extends JPanel {
         jTable.setBounds(30, 40, 800, 450);
         jTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
             public void valueChanged(ListSelectionEvent event) {
+//                int id = Integer.parseInt(jTable.getModel().getValueAt(jTable.getSelectedRow(), 0).toString());
+////                int catId = Integer.parseInt(jTable.getModel().getValueAt(jTable.getSelectedRow(), 0).toString());
+////                int pubId = Integer.parseInt(jTable.getModel().getValueAt(jTable.getSelectedRow(), 1).toString());
+////                int auId = Integer.parseInt(jTable.getModel().getValueAt(jTable.getSelectedRow(), 2).toString());
+//                // get category ID from category object
+//                int catId = CategoryBLO.getCategoryByName(jTable.getModel().getValueAt(jTable.getSelectedRow(), 1).toString()).getId();
+//                int pubId = 1; // PublisherBLO.getPublisherByName(jTable.getModel().getValueAt(jTable.getSelectedRow(), 1).toString()).getId();
+//                int auId = 1; //AuthorBLO.getAuthorByName(jTable.getModel().getValueAt(jTable.getSelectedRow(), 2).toString()).getId();
+//
+//                String name = jTable.getModel().getValueAt(jTable.getSelectedRow(), 3).toString();
+//                String description = jTable.getModel().getValueAt(jTable.getSelectedRow(), 4).toString();
+//                int price = Integer.parseInt(jTable.getModel().getValueAt(jTable.getSelectedRow(), 5).toString());
+//                int quantity = Integer.parseInt(jTable.getModel().getValueAt(jTable.getSelectedRow(), 6).toString());
+//                Timestamp createdAt;
+//                Timestamp updatedAt;
+//                String status = jTable.getModel().getValueAt(jTable.getSelectedRow(), 9).toString();
+//
+//                idIF.setText(String.valueOf(id));
+//                idIF.setEnabled(false);
+//                statusIF.setText(status);
+//                nameIF.setText(name);
+//
+//                try {
+//                    String ca = jTable.getValueAt(jTable.getSelectedRow(), 4).toString();
+//                    String ua = jTable.getValueAt(jTable.getSelectedRow(), 5).toString();
+//                    createdAt = new Timestamp((new SimpleDateFormat("dd/MM/yyyy").parse(ca).getTime()));
+//                    updatedAt = new Timestamp((new SimpleDateFormat("dd/MM/yyyy").parse(ua).getTime()));
+//                } catch (ParseException e) {
+//                    throw new RuntimeException(e);
+//                }
+//                setBookActive(new BookDTO(
+//                        id,
+//                        CategoryDAO.getCategoryById(catId),
+//                        PublisherDAO.getPublisherById(pubId),
+//                        AuthorDAO.getAuthorById(auId),
+//                        name, description, price, quantity, createdAt, updatedAt, status.equals("Enable")));
+
                 int idGet = Integer.parseInt(jTable.getValueAt(jTable.getSelectedRow(), 0).toString());
-                int catIDGet = Integer.parseInt(jTable.getValueAt(jTable.getSelectedRow(), 1).toString());
-                int pubIDGet = Integer.parseInt(jTable.getValueAt(jTable.getSelectedRow(), 2).toString());
-                int auIDGet = Integer.parseInt(jTable.getValueAt(jTable.getSelectedRow(), 3).toString());
+                BookDTO bookDTO = bookList.get(jTable.getSelectedRow());
+                int catIDGet = bookDTO.getCategory().getId();
+                int pubIDGet = bookDTO.getPublisher().getId();
+                int auIDGet = bookDTO.getAuthor().getId();
 
                 String nameGet = jTable.getValueAt(jTable.getSelectedRow(), 4).toString();
                 String desGet = jTable.getValueAt(jTable.getSelectedRow(), 5).toString();
@@ -293,17 +347,17 @@ public class Book extends JPanel {
 
                 String statusGet = jTable.getValueAt(jTable.getSelectedRow(), 10).toString();
 
-                id.setText(String.valueOf(idGet));
-                id.setEnabled(false);
-                category.setText(String.valueOf(catIDGet));
-                publisher.setText(String.valueOf(pubIDGet));
-                author.setText(String.valueOf(auIDGet));
+                idIF.setText(String.valueOf(idGet));
+                idIF.setEnabled(false);
+                categoryIF.setText(String.valueOf(catIDGet));
+                publisherIF.setText(String.valueOf(pubIDGet));
+                authorIF.setText(String.valueOf(auIDGet));
 
-                description.setText(desGet);
-                name.setText(nameGet);
-                price.setText(String.valueOf(priceGet));
-                quantity.setText(String.valueOf(quantityGet));
-                status.setText(statusGet);
+                descriptionIF.setText(desGet);
+                nameIF.setText(nameGet);
+                priceIF.setText(String.valueOf(priceGet));
+                quantityIF.setText(String.valueOf(quantityGet));
+                statusIF.setText(statusGet);
 
                 Timestamp createdAt = null;
                 Timestamp updatedAt = null;
@@ -315,7 +369,7 @@ public class Book extends JPanel {
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }
-                setBookActive(new BookDTO(idGet, CategoryDAO.getCategoryById(catIDGet), PublisherDAO.getPublisherById(pubIDGet), AuthorDAO.getAuthorById(pubIDGet), nameGet, desGet, priceGet, quantityGet, createdAt, updatedAt, statusGet.equals("Enable") ? true : false));
+                setBookActive(bookDTO);
             }
         });
         JScrollPane sp = new JScrollPane(jTable);
@@ -345,7 +399,18 @@ public class Book extends JPanel {
     public String[][] getTableData() {
         String[][] data = new String[bookList.size()][10];
         for (int i = 0; i < bookList.size(); i++) {
-            data[i] = new String[]{String.valueOf(bookList.get(i).getId()), String.valueOf(bookList.get(i).getCategory()), String.valueOf(bookList.get(i).getPublisher()), String.valueOf(bookList.get(i).getAuthor()), bookList.get(i).getName(), bookList.get(i).getDescription(), String.valueOf(bookList.get(i).getPrice()), String.valueOf(bookList.get(i).getQuantity()), TimeUtil.formatDate(bookList.get(i).getCreatedAt()), TimeUtil.formatDate(bookList.get(i).getUpdatedAt()), bookList.get(i).isDisable() ? "Enable" : "Disable"};
+            data[i] = new String[]{
+                    String.valueOf(bookList.get(i).getId()),
+                    String.valueOf(bookList.get(i).getCategory().getName()),
+                    String.valueOf(bookList.get(i).getPublisher().getName()),
+                    String.valueOf(bookList.get(i).getAuthor().getName()),
+                    bookList.get(i).getName(),
+                    bookList.get(i).getDescription(),
+                    String.valueOf(bookList.get(i).getPrice()),
+                    String.valueOf(bookList.get(i).getQuantity()),
+                    TimeUtil.formatDate(bookList.get(i).getCreatedAt()),
+                    TimeUtil.formatDate(bookList.get(i).getUpdatedAt()),
+                    bookList.get(i).isDisable() ? "Enable" : "Disable"};
         }
         return data;
     }

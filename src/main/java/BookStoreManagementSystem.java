@@ -17,7 +17,6 @@ import java.util.HashSet;
 
 public class BookStoreManagementSystem {
         public static void main(String[] args){
-
         App app = new App();
         app.loadApp();
 
@@ -74,14 +73,14 @@ public class BookStoreManagementSystem {
                 for(BookDTO i:getBookList) {
                         System.out.println(i);
                 }
-                List<AuthorDTO> getAuthorList = AuthorBLO.getAuthorList("", "id", "asc");
-                for(AuthorDTO i:getAuthorList) {
-                        System.out.println(i);
-                }
-                List<PublisherDTO> getPublisherList = PublisherBLO.getPublisherList("", "id", "asc");
-                for(PublisherDTO i:getPublisherList) {
-                        System.out.println(i);
-                }
+//                List<AuthorDTO> getAuthorList = AuthorBLO.getAuthorList("", "id", "asc");
+//                for(AuthorDTO i:getAuthorList) {
+//                        System.out.println(i);
+//                }
+//                List<PublisherDTO> getPublisherList = PublisherBLO.getPublisherList("", "id", "asc");
+//                for(PublisherDTO i:getPublisherList) {
+//                        System.out.println(i);
+//                }
 
 //
 //        PromotionDTO p = new PromotionDTO("123", "this is a code", 0.7, 100, true, true, cur_date, cur_date, cur_date, cur_date);

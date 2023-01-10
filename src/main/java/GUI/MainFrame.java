@@ -19,6 +19,8 @@ public class MainFrame extends JFrame {
     Employee employeePanel = new Employee();
     Category categoryPanel = new Category();
     Book bookPanel = new Book();
+
+    Author authorPanel = new Author();
     void buildUI() {
         setTitle("Hệ thống quản lý cửa hàng sách");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,7 +58,7 @@ public class MainFrame extends JFrame {
         employeeButton.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
                 inactiveTabs();
-                onAuthorTab();
+                onEmployeeTab();
                 employeeButton.setIsActive(true);
             }
         });
