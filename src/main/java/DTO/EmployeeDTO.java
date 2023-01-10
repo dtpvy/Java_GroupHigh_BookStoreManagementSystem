@@ -10,6 +10,19 @@ public class EmployeeDTO {
     EmployeeDTO(){
     }
 
+    public EmployeeDTO(int id, boolean accessType, Timestamp dob, String fullname, String email, String address, String phone, Timestamp createdAt, Timestamp updatedAt, Boolean disable) {
+        this.id = id;
+        this.address = address;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.disable = disable;
+        this.phone = phone;
+        this.email = email;
+        this.fullname = fullname;
+        this.dob = dob;
+        this.accessType = accessType;
+    }
+
     @Id
     @GeneratedValue (strategy=GenerationType.IDENTITY)
     @Column (name = "id")

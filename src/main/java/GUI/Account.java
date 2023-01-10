@@ -3,11 +3,13 @@ package GUI;
 import BLO.EmployeeBLO;
 import DAO.EmployeeDAO;
 import DTO.EmployeeDTO;
+import UTILS.ImageUpload;
 import UTILS.TimeUtil;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.DateFormatter;
@@ -16,6 +18,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,21 +30,47 @@ import java.util.Properties;
 
 public class Account extends JPanel {
     EmployeeDTO account;
+    ImageIcon icon = null;
+    JLabel picLabel = null;
     void buildUI() {
         JPanel header = new JPanel();
-        header.setLayout(new GridLayout(1, 2));
-        ImageIcon icon = new ImageIcon("src/main/resources/images/loginbg.png");
-        Image scaleImage = icon.getImage().getScaledInstance(150, 150,Image.SCALE_DEFAULT);
-        JLabel picLabel = new JLabel(new ImageIcon(scaleImage));
-        JButton changeImg = new JButton("Chọn ảnh đại diện");
-        picLabel.setBorder(new EmptyBorder(0, 0, 10, 0));
         JPanel image = new JPanel();
+        header.setLayout(new GridLayout(1, 2));
+        try {
+            icon = new ImageIcon(ImageIO.read(new URL(account.getImage())));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Image scaleImage = icon.getImage().getScaledInstance(150, 150,Image.SCALE_DEFAULT);
+        picLabel = new JLabel(new ImageIcon(scaleImage));
+        JButton changeImg = new JButton("Chọn ảnh đại diện");
+        JFileChooser fileDialog = new JFileChooser();
+        changeImg.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int returnVal = fileDialog.showOpenDialog(SwingUtilities.getRoot(changeImg));
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    java.io.File file = fileDialog.getSelectedFile();
+                    icon.setImage(new ImageIcon(file.getAbsolutePath()).getImage());
+                    Image scaleImage = icon.getImage().getScaledInstance(150, 150,Image.SCALE_DEFAULT);
+                    picLabel.setIcon(new ImageIcon(scaleImage));
+                    Thread t = new Thread() {
+                        @Override
+                        public void run() {
+                            String image = ImageUpload.upload(file.getAbsolutePath());
+                            EmployeeBLO.updateImage(account.getId(), image);
+                        }
+                    };
+                    t.start();
+                } else {}
+            }
+        });
+        picLabel.setBorder(new EmptyBorder(0, 0, 10, 0));
+
         image.add(picLabel);
         image.add(changeImg);
-        image.setAlignmentX(Component.CENTER_ALIGNMENT);
         image.setLayout(new BoxLayout(image, BoxLayout.Y_AXIS));
+        image.setAlignmentY(Component.CENTER_ALIGNMENT);
         header.add(image);
-
         JPanel info = new JPanel();
         info.setLayout(new GridLayout(4, 2));
         JLabel label = new JLabel("Mã nhân viên:");
@@ -141,7 +172,7 @@ public class Account extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 Date date = (Date) txtDate.getModel().getValue();
                 Timestamp selectedDate = new Timestamp(date.getTime());
-                EmployeeBLO.updateAccInfo(account.getId(), name.getText(), phone.getText(), email.getText(), "", address.getText(), selectedDate);
+                EmployeeBLO.updateAccInfo(account.getId(), name.getText(), phone.getText(), email.getText(), address.getText(), selectedDate);
                 setAccount(EmployeeDAO.getEmployeeById(account.getId()));
                 refresh();
             }
@@ -183,5 +214,8 @@ public class Account extends JPanel {
     public void refresh() {
         removeAll();
         buildUI();
+    }
+    public void refreshData() {
+        setAccount(EmployeeDAO.getEmployeeById(account.getId()));
     }
 }

@@ -83,7 +83,6 @@ public class CategoryDAO {
     }
 
     public static List<CategoryDTO> getCategoryList(String search, String sortType, String sort){
-        EmployeeDTO result = null;
         Session session = SessionGet.getSessionFactory().openSession();
         try {
             String hql = "FROM CategoryDTO WHERE name LIKE :search ORDER BY " + sortType + " " + sort;

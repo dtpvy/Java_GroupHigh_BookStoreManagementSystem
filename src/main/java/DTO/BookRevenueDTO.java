@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.ArrayList;
 
 
-public class BookRevenueDTO implements RevenueDTO{
+public class BookRevenueDTO extends TotalRevenueDTO{
 
-    Map<Timestamp, List<OrderRevenueUnitDTO>> dateMap;
-    public BookRevenueDTO(){
-        dateMap = new HashMap<>();
+    BookDTO book;
+    public BookRevenueDTO(BookDTO book){
+        this.book = book;
     }
 
     public void addBookByOrder(OrderDTO order){
@@ -29,40 +29,12 @@ public class BookRevenueDTO implements RevenueDTO{
             bookList = new ArrayList<>();
         }
         for (OrderBookDTO b : order.getItems()){
-            OrderRevenueUnitDTO nitem = new OrderRevenueUnitDTO(b, promo);
-            bookList.add(nitem);
+            if (b.getBook().equals(book)) {
+                OrderRevenueUnitDTO nitem = new OrderRevenueUnitDTO(b, promo);
+                bookList.add(nitem);
+            }
         }
 
         dateMap.put(date, bookList);
-    }
-
-    public void addBookByOrderList(List<OrderDTO> orderList){
-        for (OrderDTO o : orderList) addBookByOrder(o);
-    }
-
-    public double getRevenueByDay(Timestamp date){
-        List<OrderRevenueUnitDTO> bookList = dateMap.get(date);
-        double total = 0;
-        for (OrderRevenueUnitDTO b: bookList){
-            total += b.getPrice();
-        }
-        return total;
-    }
-
-    public double getRevenueByRangeOfDay(Timestamp startDate, Timestamp endDate){
-        double total =0;
-        for (Timestamp t : dateMap.keySet()){
-            if (t.compareTo(startDate) >= 0 && t.compareTo(endDate) <= 0)
-                total += getRevenueByDay(t);
-        }
-        return total;
-    }
-
-    public double getTotalRevenue(){
-        double total = 0;
-        for (Timestamp t : dateMap.keySet()){
-            total += getRevenueByDay(t);
-        }
-        return total;
     }
 }
